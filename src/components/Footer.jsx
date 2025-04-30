@@ -14,7 +14,7 @@ export default function Footer() {
                 <div className="footer-info">
                     <h4>INFO.</h4>
                     <p>2025학년도 1학기 캡스톤 디자인 2분반 2조</p>
-                    <p>세종대학교 지능기전공학부 스마트기기공학전공 정지윤 김휘선 양민서</p>
+                    <p>세종대학교 정지윤 김휘선 양민서</p>
                 </div>
             </div>
 

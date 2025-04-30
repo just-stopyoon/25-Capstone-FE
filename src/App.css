@@ -15,5 +15,5 @@ html, body, #root {
 /* 본문이 위아래 여백 갖고 유연하게 늘어나게 */
 .main-content {
   flex: 1;
-  padding: 40px 80px;
+  padding: 5px 50px;
 }
