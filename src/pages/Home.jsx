@@ -15,28 +15,31 @@ export default function Home() {
   ];
 
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [isSliding, setIsSliding] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIdx(prev => (prev + 1) % questions.length);
-    }, 3000);
+      setCurrentIdx((prev) => (prev + 1) % questions.length);
+    }, 6000); // 6초마다 슬라이드
+  
     return () => clearInterval(timer);
   }, []);
 
   return (
     <div className="home">
-      {/* 소개 문구 */}
       <section className="home-intro">
         <h2>혹시 … 이런 변화, 느껴본 적 있나요?</h2>
         <p>아래 항목 중 하나라도 해당된다면, 지금 바로 AI 진단을 받아보세요.</p>
       </section>
 
-      {/* 슬라이드 질문 */}
       <section className="home-carousel">
         <div className="carousel-wrapper">
           <div
-            className="carousel-track"
-            style={{ transform: `translateX(-${currentIdx * 100}%)` }}
+            className={`carousel-track ${isSliding ? 'sliding' : ''}`}
+            style={{
+              transform: `translateX(-${currentIdx * 100}%)`,
+              width: `${questions.length * 100}%`
+            }}
           >
             {questions.map((text, index) => (
               <div className="carousel-slide" key={index}>
@@ -44,22 +47,18 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* 인디케이터 */}
-        <div className="carousel-dots">
-          {questions.map((_, index) => (
-            <span
-              key={index}
-              className={`dot ${index === currentIdx ? 'active' : ''}`}
-            ></span>
-          ))}
+          <div className="carousel-dots">
+            {questions.map((_, index) => (
+              <span
+                key={index}
+                className={`dot ${index === currentIdx ? 'active' : ''}`}
+              ></span>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 주요 콘텐츠 */}
       <section className="home-main-content">
-        {/* 왼쪽: 소개 + 이미지 */}
         <div className="left-box">
           <div className="left-text">
             <h3>
@@ -75,12 +74,11 @@ export default function Home() {
           <img src={elderImg} alt="어르신 일러스트" className="elder-image" />
         </div>
 
-        {/* 오른쪽: 진단/케어 카드 */}
         <div className="right-box">
           <Link to="/diagnosis" className="card diagnosis-card">
             <div className="card-text">
               <h4>치매 진단</h4>
-              <p>민디와 대화하면서<br />치매 진단하기</p>
+              <p>민디와 함께 대화하면서<br />치매 진단하기</p>
             </div>
             <div className="card-image">
               <img src={diagnosisImg} alt="치매 진단" />
