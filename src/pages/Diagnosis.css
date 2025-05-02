@@ -1,0 +1,75 @@
+.diagnosis-page {
+    background-color: #F2F2F2;
+    padding: 30px 30px;
+    text-align: center;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+  }
+  
+  .diagnosis-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 12px;
+  }
+  
+  .diagnosis-header p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  .diagnosis-test-box {
+    margin: 48px auto;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    max-width: 800px;
+  }
+  
+  .test-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 32px 24px;
+    width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .test-card p {
+    font-size: 22px;
+    font-weight: 700;
+    margin : 10px;
+  }
+  
+  .icon-circle {
+    width: 80px;
+    height: 80px;
+    background-color: #F1F3FF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .start-btn {
+    margin-top: 10px;
+    background-color: #7C88FF;
+    color: white;
+    padding: 20px 120px;
+    border: none;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .start-btn:hover {
+    background-color: #4650D4;
+  }
