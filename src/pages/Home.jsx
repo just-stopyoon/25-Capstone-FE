@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
 import diagnosisImg from '../images/chatbot.png';
 import careImg from '../images/game.png';
 import elderImg from '../images/elder.png';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 export default function Home() {
   const questions = [
@@ -14,17 +19,6 @@ export default function Home() {
     "낯선 곳에서 길을 헤맨 적이 있다"
   ];
 
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [isSliding, setIsSliding] = useState(false);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIdx((prev) => (prev + 1) % questions.length);
-    }, 6000); // 6초마다 슬라이드
-  
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <div className="home">
       <section className="home-intro">
@@ -33,29 +27,24 @@ export default function Home() {
       </section>
 
       <section className="home-carousel">
-        <div className="carousel-wrapper">
-          <div
-            className={`carousel-track ${isSliding ? 'sliding' : ''}`}
-            style={{
-              transform: `translateX(-${currentIdx * 100}%)`,
-              width: `${questions.length * 100}%`
-            }}
-          >
-            {questions.map((text, index) => (
-              <div className="carousel-slide" key={index}>
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          spaceBetween={50}
+          slidesPerView={1}
+          loop={true}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          speed={700} // ✅ 전환 애니메이션 속도 0.8초
+          className="swiper-container"
+        >
+          {questions.map((text, index) => (
+            <SwiperSlide key={index}>
+              <div className="carousel-slide">
                 <p>{text}</p>
               </div>
-            ))}
-          </div>
-          <div className="carousel-dots">
-            {questions.map((_, index) => (
-              <span
-                key={index}
-                className={`dot ${index === currentIdx ? 'active' : ''}`}
-              ></span>
-            ))}
-          </div>
-        </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </section>
 
       <section className="home-main-content">
@@ -78,7 +67,7 @@ export default function Home() {
           <Link to="/diagnosis" className="card diagnosis-card">
             <div className="card-text">
               <h4>치매 진단</h4>
-              <p>민디와 함께 대화하면서<br />치매 진단하기</p>
+              <p>민디와 대화하면서<br />치매 진단하기</p>
             </div>
             <div className="card-image">
               <img src={diagnosisImg} alt="치매 진단" />
