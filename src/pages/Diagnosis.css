@@ -10,7 +10,7 @@
     font-size: 36px;
     font-weight: 700;
     margin-top: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   
   .diagnosis-header p {
@@ -24,7 +24,7 @@
     margin: 48px auto;
     display: flex;
     justify-content: center;
-    gap: 24px;
+    gap: 22px;
     flex-wrap: wrap;
     max-width: 800px;
   }
@@ -38,13 +38,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 5px;
   }
   
   .test-card p {
     font-size: 22px;
     font-weight: 700;
-    margin : 10px;
+    margin : 5px;
   }
   
   .icon-circle {
@@ -58,18 +58,31 @@
   }
   
   .start-btn {
-    margin-top: 10px;
+    display: inline-block;
+    margin-top: 10px; /* 위에 gap 20px */
+    padding: 16px 120px;
     background-color: #7C88FF;
     color: white;
-    padding: 20px 120px;
-    border: none;
-    border-radius: 12px;
-    font-size: 22px;
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 18px;
     font-weight: 600;
+    border-radius: 10px;
+    text-align: center;
     cursor: pointer;
     transition: background-color 0.2s;
   }
+
   
   .start-btn:hover {
     background-color: #4650D4;
+  }
+
+  .prepare {
+    gap:4px;
+    
+  }
+  
+  .prepare p{
+    
+    line-height: 1.5;
   }

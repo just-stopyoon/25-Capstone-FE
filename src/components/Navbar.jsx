@@ -11,7 +11,7 @@ export default function Navbar() {
             <span className="logo-text">MinDI</span>
         </Link>
         </div>
-            <ul className="navbar-menu">
+            <ul className="navbar-menu">ㄴ
                 <li><Link to="/about">서비스 소개</Link></li>
                 <li><Link to="/diagnosis">치매 진단</Link></li>
                 <li><Link to="/care">치매 케어</Link></li>

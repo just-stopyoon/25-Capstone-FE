@@ -31,7 +31,7 @@
 }
 
 .logo-text {
-    color: #5D6EFF;
+    color: #4650D4 !important;
     font-weight: 700;
     font-size: 28px;
     line-height: 1;         /* 🔧 높이 정렬 보정 */

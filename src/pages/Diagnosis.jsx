@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import './Diagnosis.css';
+import { Link } from 'react-router-dom';
 import { FaVolumeUp, FaMicrophone } from 'react-icons/fa';
 
 export default function Diagnosis() {
@@ -61,7 +62,7 @@ export default function Diagnosis() {
       <section className="diagnosis-test-box">
         {/* 오디오 테스트 */}
         <div className="test-card" onClick={handleAudioTest}>
-          <p>오디오 테스트를 진행해주세요</p>
+          <p>오디오 테스트</p>
           <div className="icon-circle">
             <FaVolumeUp size={36} color="#7C88FF" />
           </div>
@@ -73,7 +74,7 @@ export default function Diagnosis() {
 
         {/* 마이크 테스트 */}
         <div className="test-card" onClick={handleMicTest}>
-          <p>마이크 테스트를 진행해주세요</p>
+          <p>마이크 테스트</p>
           <div className="icon-circle">
             <FaMicrophone size={36} color="#7C88FF" />
           </div>
@@ -82,8 +83,11 @@ export default function Diagnosis() {
           )}
         </div>
       </section>
-
-      <button className="start-btn">검사 시작하기</button>
+      <div className = "prepare">
+        <h2>준비가 되셨다면, '검사 시작하기'를를 눌러주세요</h2>
+        <p>검사는 약 10분간 진행되며, 마인디가 드리는 질문에 대답해주시면 됩니다.<br/>어렵지 않으니 편안한 마음으로 임해주세요.</p>
+      </div>
+      <Link to="/conversation" className="start-btn">검사 시작하기</Link>
     </div>
   );
 }
