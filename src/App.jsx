@@ -9,6 +9,8 @@ import Diagnosis from './pages/Diagnosis';
 import Care from './pages/Care';
 import Support from './pages/Support';
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+
 
 export default function App() {
   return (
@@ -23,6 +25,7 @@ export default function App() {
             <Route path="/care" element={<Care />} />
             <Route path="/support" element={<Support />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </main>
         <Footer />

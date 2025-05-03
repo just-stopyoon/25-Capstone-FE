@@ -20,28 +20,33 @@ export default function Diagnosis() {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const recorder = new MediaRecorder(stream);
       const chunks = [];
-
+  
       recorder.ondataavailable = (e) => {
         chunks.push(e.data);
       };
-
+  
       recorder.onstop = () => {
         const blob = new Blob(chunks, { type: 'audio/webm' });
         const url = URL.createObjectURL(blob);
         setAudioURL(url);
+  
+        // ✅ 자동 재생
+        const tempAudio = new Audio(url);
+        tempAudio.play();
       };
-
+  
       recorder.start();
       setMediaRecorder(recorder);
-
+  
       setTimeout(() => {
         recorder.stop();
-      }, 3000); // 3초 후 자동 녹음 종료
+      }, 5000); // 5초 녹음
     } catch (err) {
       alert('마이크 접근을 허용해주세요!');
       console.error(err);
     }
   };
+  
 
   return (
     <div className="diagnosis-page">
@@ -60,7 +65,10 @@ export default function Diagnosis() {
           <div className="icon-circle">
             <FaVolumeUp size={36} color="#7C88FF" />
           </div>
-          <audio ref={audioRef} src="/audio/sample.mp3" />
+          <audio ref={audioRef} preload="auto">
+            <source src="/audio/sample.mp3" type="audio/mpeg" />
+            브라우저가 오디오를 지원하지 않습니다.
+          </audio>
         </div>
 
         {/* 마이크 테스트 */}
@@ -70,7 +78,7 @@ export default function Diagnosis() {
             <FaMicrophone size={36} color="#7C88FF" />
           </div>
           {audioURL && (
-            <audio controls src={audioURL} style={{ marginTop: '10px' }} />
+          <audio controls src={audioURL} style={{ marginTop: '10px' }} />
           )}
         </div>
       </section>

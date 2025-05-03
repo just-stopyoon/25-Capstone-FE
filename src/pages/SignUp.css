@@ -1,0 +1,187 @@
+::placeholder {
+    color: #aaa; /* 연한 회색 (원하는 색으로 조절 가능) */
+    opacity: 1;  /* 일부 브라우저에서 흐릿해지는 것 방지 */
+  }
+  
+
+.signup-page {
+    max-width: 600px;
+    margin: auto;
+    background-color: #f2f2f2;
+    font-family: 'Pretendard', sans-serif;
+  }
+  
+  .signup-title {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #222;
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  
+  /* 라벨 + 입력 필드 정렬 */
+  .signup-row {
+    display: flex;
+    align-items: center;
+  }
+  
+  .signup-row label {
+    width: 120px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #111;
+  }
+  
+  /* 공통 텍스트 input 스타일 */
+  .signup-row input[type="text"] {
+    width: 100%;
+    max-width: 360px;
+    padding: 14px 16px;
+    font-size: 17px;
+    border: 1.5px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  
+  /* 🎯 생년월일 인풋만 따로 지정 */
+  .signup-row .birth-inputs input[type="text"] {
+    width: 115px;
+    max-width:360px;
+    padding: 14px 16px;
+    font-size: 16px;
+    border: 1.5px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+  
+  .birth-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* 성별 버튼 */
+  .gender-buttons {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .gender-buttons button {
+    padding: 11.5px 80px;
+    font-size: 16px;
+    border: 1.5px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .gender-buttons button.selected {
+    border: 2px solid #7B84FF;
+    color: #7B84FF;
+    font-weight: 600;
+  }
+  
+  /* 전화번호 */
+  .phone-inputs {
+    display: flex;
+    flex-direction: column;
+    max-width: 360px;
+    width: 100%;
+  }
+  
+  .phone-inputs input {
+    padding: 14px 16px;
+    font-size: 16px;
+    border: 1.5px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.phone-inputs p {
+    font-size: 16px;
+    color: #777;
+    margin-top: -20px;
+    margin-bottom: -5px;
+    margin-left: 130px;
+  }
+  
+  /* 학력 */
+  .education-options {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    max-width: 800px;
+  }
+  
+  .education-options label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    color: #111;
+  }
+  
+  /* 버튼 */
+  .signup-button-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .signup-btn {
+    width: 100%;
+    max-width: 400px;
+    padding: 16px 0;
+    background-color: #7B84FF;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .signup-btn:disabled {
+    background-color: #D1D1D1;
+    cursor: not-allowed;
+  }
+  .signup-btn:enabled:hover {
+    background-color: #4650D4;
+  }
+  
+  /* 비밀번호 input (기본 text input과 동일하게 적용됨) */
+.signup-row input[type="password"] {
+    width: 100%;
+    max-width: 360px;
+    padding: 14px 16px;
+    font-size: 17px;
+    border: 1.5px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  
+  /* 최종 학력 드롭다운 */
+  .education-select {
+    width: 100%;
+    max-width: 398px;
+    padding: 14px 16px;
+    font-size: 17px;
+    border: 1.5px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    appearance: none; /* 브라우저 기본 스타일 제거 */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D'16'%20height%3D'16'%20fill%3D'%237B84FF'%20xmlns%3D'http%3A//www.w3.org/2000/svg'%3E%3Cpath%20d%3D'M4%206l4%204%204-4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px;
+  }
+  

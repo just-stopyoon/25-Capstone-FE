@@ -137,8 +137,8 @@
   }
   
   .login-links a {
-    color: #7A84E3;
-    font-weight: bold;
+    color: black;
+    font-weight: 500;
     text-decoration: none;
     margin: 0 8px;
   }
