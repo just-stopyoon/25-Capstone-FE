@@ -8,10 +8,10 @@ export default function Navbar() {
         <div className="navbar-logo">
         <Link to="/" className="logo-link">
             <img src={logo} alt="logo" className="logo-icon" />
-            <span className="logo-text">MinDI</span>
+            <span className="logo-text">MINDI</span>
         </Link>
         </div>
-            <ul className="navbar-menu">ㄴ
+            <ul className="navbar-menu">
                 <li><Link to="/about">서비스 소개</Link></li>
                 <li><Link to="/diagnosis">치매 진단</Link></li>
                 <li><Link to="/care">치매 케어</Link></li>
