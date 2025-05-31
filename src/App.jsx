@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Diagnosis from './pages/Diagnosis';
 import ConversationPage from './pages/conversation/ConversationPage';
+import Loading from './pages/Loading';
+import Report from './pages/Report';
 import Care from './pages/Care';
 import Support from './pages/Support';
 import Login from './pages/Login';
@@ -27,7 +29,8 @@ export default function App() {
             <Route path="/support" element={<Support />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/done" element={<div>모든 질문이 완료되었습니다 🎉</div>} />
+            <Route path="/loading" element={<Loading/>} />
+            <Route path="/report" element={<Report/>} />
           </Routes>
         </main>
         <Footer />

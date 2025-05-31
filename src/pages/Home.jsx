@@ -77,7 +77,7 @@ export default function Home() {
           <Link to="/care" className="card care-card">
             <div className="card-text">
               <h4>치매 케어</h4>
-              <p>민디와 대화부터 게임까지<br />치매 치료하기</p>
+              <p>민디와 회상대화를 통해<br />치매 치료하기</p>
             </div>
             <div className="card-image">
               <img src={careImg} alt="치매 케어" />

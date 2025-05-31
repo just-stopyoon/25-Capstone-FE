@@ -14,13 +14,24 @@ export default function ConversationPage() {
   const questionAudioRef = useRef(null);
   const navigate = useNavigate();
 
-  const startRecording = async () => {
-    try {
-      await questionAudioRef.current?.play();
-    } catch (err) {
-      console.warn('질문 음성 재생 실패:', err);
-    }
+  // ✅ 페이지마다 질문 오디오 재생을 위한 클릭 이벤트 등록
+  useEffect(() => {
+    const playQuestionAudio = async () => {
+      try {
+        if (questionAudioRef.current) {
+          await questionAudioRef.current.play();
+        }
+      } catch (err) {
+        console.warn('음성 재생 실패:', err);
+      }
+      window.removeEventListener('click', playQuestionAudio);
+    };
 
+    window.addEventListener('click', playQuestionAudio);
+    return () => window.removeEventListener('click', playQuestionAudio);
+  }, [id]); // 질문 번호(id)가 바뀔 때마다 등록
+
+  const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     audioChunksRef.current = [];
 
@@ -35,6 +46,7 @@ export default function ConversationPage() {
     recorder.onstop = () => {
       const blob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
       const url = URL.createObjectURL(blob);
+
       const a = document.createElement('a');
       a.href = url;
       a.download = `answer${id}.webm`;
@@ -43,7 +55,7 @@ export default function ConversationPage() {
       if (questionIndex < questions.length - 1) {
         navigate(`/conversation/${questionIndex + 2}`);
       } else {
-        navigate('/done'); // 마지막 질문 이후 페이지 (예: 결과 페이지)
+        navigate('/loading');
       }
     };
 
@@ -68,7 +80,9 @@ export default function ConversationPage() {
       </div>
 
       <div className="sentence-section">
-        <h2 className="question">{question}</h2>
+        <div className="question-box">
+          <h2 className="question">{question}</h2>
+        </div>
       </div>
 
       <div className="question-section">
@@ -79,13 +93,9 @@ export default function ConversationPage() {
         </p>
 
         {isRecording ? (
-          <button className="stop-btn" onClick={stopRecording}>
-            그만하기
-          </button>
+          <button className="stop-btn" onClick={stopRecording}>그만하기</button>
         ) : (
-          <button className="start-btn" onClick={startRecording}>
-            답변 시작
-          </button>
+          <button className="start-btn" onClick={startRecording}>답변 시작</button>
         )}
       </div>
 
