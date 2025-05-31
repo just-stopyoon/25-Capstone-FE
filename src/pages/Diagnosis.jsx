@@ -84,10 +84,10 @@ export default function Diagnosis() {
         </div>
       </section>
       <div className = "prepare">
-        <h2>준비가 되셨다면, '검사 시작하기'를를 눌러주세요</h2>
-        <p>검사는 약 10분간 진행되며, 마인디가 드리는 질문에 대답해주시면 됩니다.<br/>어렵지 않으니 편안한 마음으로 임해주세요.</p>
+        <h2>준비가 되셨다면, '검사 시작하기'를 눌러주세요</h2>
+        <p>검사는 약 15분간 진행되며, 마인디가 드리는 질문에 대답해주시면 됩니다.<br/>어렵지 않으니 편안한 마음으로 임해주세요.</p>
       </div>
-      <Link to="/conversation" className="start-btn">검사 시작하기</Link>
+      <Link to="/conversation/1" className="start-btn">검사 시작하기</Link>
     </div>
   );
 }

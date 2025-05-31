@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
 
 export default function SignUp() {
@@ -8,6 +9,8 @@ export default function SignUp() {
   const [gender, setGender] = useState('');
   const [education, setEducation] = useState('');
   const [birth, setBirth] = useState({ year: '', month: '', day: '' });
+
+  const navigate = useNavigate();
 
   const isFormValid =
     name.trim() &&
@@ -19,10 +22,18 @@ export default function SignUp() {
     birth.day.length === 2 &&
     education;
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isFormValid) {
+      // 여기에 회원가입 처리 로직(API 요청 등)을 추가할 수 있음
+      navigate('/'); // 메인화면으로 이동
+    }
+  };
+
   return (
     <div className="signup-page">
       <h2 className="signup-title">회원 가입</h2>
-      <form className="signup-form">
+      <form className="signup-form" onSubmit={handleSubmit}>
         {/* 이름 */}
         <div className="signup-row">
           <label>이름</label>
@@ -112,7 +123,7 @@ export default function SignUp() {
           </div>
         </div>
 
-        {/* 최종 학력 (드롭다운) */}
+        {/* 최종 학력 */}
         <div className="signup-row">
           <label>최종 학력</label>
           <select
@@ -129,7 +140,7 @@ export default function SignUp() {
           </select>
         </div>
 
-        {/* 버튼 */}
+        {/* 가입 버튼 */}
         <div className="signup-button-row">
           <button type="submit" className="signup-btn" disabled={!isFormValid}>
             가입하기
