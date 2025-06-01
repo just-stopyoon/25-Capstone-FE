@@ -1,8 +1,8 @@
 import React from 'react';
 import './Report.css';
-import warning from '../images/warning.png';
-import good from '../images/good.png';
-import bad from '../images/bad.png';
+import warning from '../../images/warning.png';
+import good from '../../images/good.png';
+import bad from '../../images/bad.png';
 
 export default function Report() {
   return (

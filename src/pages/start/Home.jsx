@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import './Home.css';
 
-import diagnosisImg from '../images/chatbot.png';
-import careImg from '../images/game.png';
-import elderImg from '../images/elder.png';
+import diagnosisImg from '../../images/chatbot.png';
+import careImg from '../../images/game.png';
+import elderImg from '../../images/elder.png';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
@@ -33,8 +33,8 @@ export default function Home() {
           slidesPerView={1}
           loop={true}
           pagination={{ clickable: true }}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
-          speed={700} // ✅ 전환 애니메이션 속도 0.8초
+          autoplay={{ delay: 1200, disableOnInteraction: false }}
+          speed={800} // ✅ 전환 애니메이션 속도 0.8초
           className="swiper-container"
         >
           {questions.map((text, index) => (

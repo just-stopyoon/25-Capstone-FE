@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
-import logo from '../images/logo.png';
-import loginImg from '../images/loginImg.png';
+import loginImg from '../../images/loginImg.png';
 
 export default function Login() {
   return (
