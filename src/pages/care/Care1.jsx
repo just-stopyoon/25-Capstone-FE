@@ -22,7 +22,7 @@ export default function Care() {
           {['월', '화', '수', '목', '금', '토', '일'].map((day, idx) => (
             <div className="day-check" key={day}>
               <img
-                src={idx < 2 ? checkOn : checkOff}
+                src={idx < 3 ? checkOn : checkOff}
                 alt="체크"
               />
               <span>{day}</span>

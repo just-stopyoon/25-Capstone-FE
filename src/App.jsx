@@ -16,6 +16,7 @@ import Report from './pages/diagnosis/Report';
 
 import Care from './pages/care/Care';
 import Elaborate from './pages/care/Elaborate';
+import Care1 from './pages/care/Care1';
 
 export default function App() {
   return (
@@ -36,7 +37,8 @@ export default function App() {
             <Route path="/report" element={<Report />} />
             
             <Route path="/care" element={<Care />} />
-            <Route path="/elaborate/:id" element={<Elaborate />} />
+            <Route path="/elaborate" element={<Elaborate />} />
+            <Route path="/care1" element={<Care1 />} />
           </Routes>
         </main>
         <Footer />
