@@ -1,6 +1,6 @@
 .diagnosis-page {
     background-color: #F2F2F2;
-    padding: 30px 30px;
+    padding: 20px 20px;
     text-align: center;
     box-sizing: border-box;
     font-family: 'Pretendard', sans-serif;
@@ -21,7 +21,7 @@
   }
   
   .diagnosis-test-box {
-    margin: 48px auto;
+    margin: 36px auto;
     display: flex;
     justify-content: center;
     gap: 22px;

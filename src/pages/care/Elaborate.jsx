@@ -20,7 +20,7 @@ export default function TalkPage() {
         <img src={mindy} alt="마인디" className="mindy-image" />
       </section>
 
-      <Link to="/care1" className="stop-elaborate-btn">기록 시작하기</Link>
+      <Link to="/care1" className="stop-elaborate-btn">기록 중단하기</Link>
     </div>
   );
 }

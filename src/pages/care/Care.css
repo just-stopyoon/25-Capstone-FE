@@ -1,6 +1,6 @@
 .care-page {
     background-color: #F2F2F2;
-    padding: 30px 30px;
+    padding: 20px 20px;
     text-align: center;
     box-sizing: border-box;
     font-family: 'Pretendard', sans-serif;
@@ -24,7 +24,7 @@
 /* 일일 기록 현황 */
 .record-status {
   background-color: white;
-  margin: 60px auto;
+  margin: 40px auto;
   padding: 32px 24px;
   border-radius: 16px;
   width: fit-content;
