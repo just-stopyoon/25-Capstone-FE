@@ -22,12 +22,43 @@ export default function SignUp() {
     birth.day.length === 2 &&
     education;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isFormValid) {
-      // 여기에 회원가입 처리 로직(API 요청 등)을 추가할 수 있음
-      navigate('/'); // 메인화면으로 이동
+    if (!isFormValid) {
+      alert('모든 항목을 올바르게 입력해주세요.');
+      return;
     }
+
+	const userData = {
+		phone,
+		name,
+		password,
+		gender,
+		birth_year: parseInt(birth.year, 10),
+		birth_month:  parseInt(birth.year, 10),
+		birth_day: parseInt(birth.year, 10),
+		education,
+	};
+
+	try {
+		const response = await fetch('http://127.0.0.1:8000/api/signup', {
+			method: 'POST',
+			headers: {
+				'Content-Type' : 'application/json',
+			},
+			body: JSON.stringify(userData),
+		});
+		if (response.ok) {
+			alert('회원가입에 성공했습니다. 로그인 페이지로 이동합니다.');
+			navigate('/login');
+		} else {
+			const errorData = await response.json();
+			alert(`회원가입 실파: ${errorData.detail}`);
+		}
+	} catch (error) {
+		console.error('회원가입 중 오류 발생: ', error);
+		alert(error);
+	}
   };
 
   return (
