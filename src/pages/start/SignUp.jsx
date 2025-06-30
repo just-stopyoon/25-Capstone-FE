@@ -41,7 +41,7 @@ export default function SignUp() {
 	};
 
 	try {
-		const response = await fetch('http://127.0.0.1:8000/api/signup', {
+		const response = await fetch('http://127.0.0.1:8000/api/user/signup', {
 			method: 'POST',
 			headers: {
 				'Content-Type' : 'application/json',
