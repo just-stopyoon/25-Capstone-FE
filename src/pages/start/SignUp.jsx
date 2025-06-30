@@ -35,8 +35,8 @@ export default function SignUp() {
 		password,
 		gender,
 		birth_year: parseInt(birth.year, 10),
-		birth_month:  parseInt(birth.year, 10),
-		birth_day: parseInt(birth.year, 10),
+		birth_month:  parseInt(birth.month, 10),
+		birth_day: parseInt(birth.day, 10),
 		education,
 	};
 
