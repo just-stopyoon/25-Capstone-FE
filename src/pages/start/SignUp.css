@@ -15,14 +15,14 @@
     font-size: 32px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 28px;
     color: #222;
   }
   
   .signup-form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
   }
   
   /* 라벨 + 입력 필드 정렬 */
@@ -32,7 +32,7 @@
   }
   
   .signup-row label {
-    width: 120px;
+    width: 110px;
     font-size: 18px;
     font-weight: 600;
     color: #111;
@@ -95,6 +95,7 @@
     flex-direction: column;
     max-width: 360px;
     width: 100%;
+    padding-top : 10px;
   }
   
   .phone-inputs input {
@@ -133,7 +134,7 @@
   .signup-button-row {
     display: flex;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 18px;
   }
   
   .signup-btn {
@@ -151,7 +152,7 @@
   }
 
   .signup-btn:disabled {
-    background-color: #D1D1D1;
+    background-color: #aeaeae;
     cursor: not-allowed;
   }
   .signup-btn:enabled:hover {

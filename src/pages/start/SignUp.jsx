@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
 
@@ -12,16 +12,45 @@ export default function SignUp() {
 
   const navigate = useNavigate();
 
+  /* ---------- 공통 유틸 ---------- */
+  const padToTwoDigits = (value) =>
+    value.length === 1 ? '0' + value : value;
+
+  const isValidYear = (y) => /^\d{4}$/.test(y);
+
+  const isValidMonth = (m) => {
+    const num = Number(m);
+    return /^\d{1,2}$/.test(m) && num >= 1 && num <= 12;
+  };
+
+  const isValidDay = (d) => {
+    const num = Number(d);
+    return /^\d{1,2}$/.test(d) && num >= 1 && num <= 31;
+  };
+
   const isFormValid =
     name.trim() &&
     phone.trim() &&
     password.trim() &&
     gender &&
-    birth.year.length === 4 &&
-    birth.month.length === 2 &&
-    birth.day.length === 2 &&
+    isValidYear(birth.year) &&
+    isValidMonth(birth.month) &&
+    isValidDay(birth.day) &&
     education;
 
+  /* ---------- onBlur 보정 ---------- */
+  const handleBirthBlur = useCallback(
+    (field) => (e) => {
+      const value = e.target.value;
+      if (field === 'month' && isValidMonth(value))
+        setBirth((prev) => ({ ...prev, month: padToTwoDigits(value) }));
+      if (field === 'day' && isValidDay(value))
+        setBirth((prev) => ({ ...prev, day: padToTwoDigits(value) }));
+    },
+    [setBirth]
+  );
+
+  /* ---------- 제출 ---------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid) {
@@ -29,38 +58,41 @@ export default function SignUp() {
       return;
     }
 
-	const userData = {
-		phone,
-		name,
-		password,
-		gender,
-		birth_year: parseInt(birth.year, 10),
-		birth_month:  parseInt(birth.month, 10),
-		birth_day: parseInt(birth.day, 10),
-		education,
-	};
+    const userData = {
+      phone,
+      name,
+      password,
+      gender,
+      birth_year: Number(birth.year),
+      birth_month: Number(birth.month),
+      birth_day: Number(birth.day),
+      education,
+    };
 
-	try {
-		const response = await fetch('http://127.0.0.1:8000/api/user/signup', {
-			method: 'POST',
-			headers: {
-				'Content-Type' : 'application/json',
-			},
-			body: JSON.stringify(userData),
-		});
-		if (response.ok) {
-			alert('회원가입에 성공했습니다. 로그인 페이지로 이동합니다.');
-			navigate('/login');
-		} else {
-			const errorData = await response.json();
-			alert(`회원가입 실파: ${errorData.detail}`);
-		}
-	} catch (error) {
-		console.error('회원가입 중 오류 발생: ', error);
-		alert(error);
-	}
+    try {
+      const response = await fetch(
+        'http://127.0.0.1:8000/api/user/signup',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData),
+        }
+      );
+
+      if (response.ok) {
+        alert('회원가입에 성공했습니다. 로그인 페이지로 이동합니다.');
+        navigate('/login');
+      } else {
+        const errorData = await response.json();
+        alert(`회원가입 실패: ${errorData.detail}`);
+      }
+    } catch (error) {
+      console.error('회원가입 중 오류 발생: ', error);
+      alert(error);
+    }
   };
 
+  /* ---------- 렌더 ---------- */
   return (
     <div className="signup-page">
       <h2 className="signup-title">회원 가입</h2>
@@ -89,7 +121,7 @@ export default function SignUp() {
           </div>
         </div>
         <div className="phone-inputs">
-          <p>로그인 시 아이디로 사용됩니다</p>
+          <p>※로그인 시 아이디로 사용됩니다</p>
         </div>
 
         {/* 비밀번호 */}
@@ -133,7 +165,9 @@ export default function SignUp() {
               placeholder="1930"
               maxLength="4"
               value={birth.year}
-              onChange={(e) => setBirth({ ...birth, year: e.target.value })}
+              onChange={(e) =>
+                setBirth({ ...birth, year: e.target.value })
+              }
             />
             <span>/</span>
             <input
@@ -141,7 +175,10 @@ export default function SignUp() {
               placeholder="01"
               maxLength="2"
               value={birth.month}
-              onChange={(e) => setBirth({ ...birth, month: e.target.value })}
+              onChange={(e) =>
+                setBirth({ ...birth, month: e.target.value })
+              }
+              onBlur={handleBirthBlur('month')}
             />
             <span>/</span>
             <input
@@ -149,7 +186,10 @@ export default function SignUp() {
               placeholder="01"
               maxLength="2"
               value={birth.day}
-              onChange={(e) => setBirth({ ...birth, day: e.target.value })}
+              onChange={(e) =>
+                setBirth({ ...birth, day: e.target.value })
+              }
+              onBlur={handleBirthBlur('day')}
             />
           </div>
         </div>
@@ -173,7 +213,11 @@ export default function SignUp() {
 
         {/* 가입 버튼 */}
         <div className="signup-button-row">
-          <button type="submit" className="signup-btn" disabled={!isFormValid}>
+          <button
+            type="submit"
+            className="signup-btn"
+            disabled={!isFormValid}
+          >
             가입하기
           </button>
         </div>
