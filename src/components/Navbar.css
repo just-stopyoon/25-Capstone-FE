@@ -71,3 +71,18 @@
 .login-button:hover {
     background-color: #4650D4;
 }
+
+.navbar-login .logout-button {
+    background-color: #7C88FF;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none;
+	border: none;
+}
+
+.logout-button:hover {
+    background-color: #4650D4;
+}

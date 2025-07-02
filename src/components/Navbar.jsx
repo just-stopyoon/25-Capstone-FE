@@ -1,8 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../images/logo.png';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
+	const { isLoggedIn, logout } = useAuth();
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+		logout();
+		alert('로그아웃 되었습니다.');
+		navigate('/');
+	};
+
     return (
     <nav className="navbar">
         <div className="navbar-logo">
@@ -18,7 +28,13 @@ export default function Navbar() {
                 <li><Link to="/support">고객 지원</Link></li>
             </ul>
         <div className="navbar-login">
-            <Link to="/login" className="login-button">로그인</Link>
+			{
+				isLoggedIn ? (
+					<button onClick={handleLogout} className='logout-button'>로그아웃</button>
+				) : (
+					<Link to="/login" className="login-button">로그인</Link>
+				)
+			}
         </div>
     </nav>
     );

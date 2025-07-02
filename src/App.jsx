@@ -3,6 +3,8 @@ import './App.css';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 
+import { AuthProvider } from './context/AuthContext';
+
 import Home from './pages/start/Home';
 import About from './pages/start/About';
 import Support from './pages/start/Support';
@@ -21,28 +23,30 @@ import Care1 from './pages/care/Care1';
 export default function App() {
   return (
     <div className="App">
-      <Router>
-        <Navbar />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/support" element={<Support />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
+      <AuthProvider>
+        <Router>
+          <Navbar />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
 
-            <Route path="/diagnosis" element={<Diagnosis />} />
-            <Route path="/conversation/:id" element={<ConversationPage />} />
-            <Route path="/loading" element={<Loading />} />
-            <Route path="/report" element={<Report />} />
-            
-            <Route path="/care" element={<Care />} />
-            <Route path="/elaborate" element={<Elaborate />} />
-            <Route path="/care1" element={<Care1 />} />
-          </Routes>
-        </main>
-        <Footer />
-      </Router>
+              <Route path="/diagnosis" element={<Diagnosis />} />
+              <Route path="/conversation/:id" element={<ConversationPage />} />
+              <Route path="/loading" element={<Loading />} />
+              <Route path="/report" element={<Report />} />
+              
+              <Route path="/care" element={<Care />} />
+              <Route path="/elaborate" element={<Elaborate />} />
+              <Route path="/care1" element={<Care1 />} />
+            </Routes>
+          </main>
+          <Footer />
+        </Router> 
+      </AuthProvider>
     </div>
   );
 }

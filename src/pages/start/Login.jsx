@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import { useAuth } from '../../context/AuthContext';
 
 import loginImg from '../../images/loginImg.png';
 
 export default function Login() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -27,7 +29,7 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem('accessToken', data.access_token);
+        login(data.access_token);
         alert('로그인 되었습니다.');
         navigate('/');
       } else {
