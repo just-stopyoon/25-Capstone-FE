@@ -6,13 +6,17 @@ import './Conversation.css';
 
 export default function ConversationPage() {
   const { id } = useParams();
-  const questionIndex = parseInt(id, 10) - 1;
-  const question = questions[questionIndex];
+  const navigate = useNavigate();
+
+  const currentQuestionId = parseInt(id, 10);
+  const totalQuestions = questions.length;
+
+  const question = questions[currentQuestionId - 1];
+
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const questionAudioRef = useRef(null);
-  const navigate = useNavigate();
 
   // ✅ 페이지마다 질문 오디오 재생을 위한 클릭 이벤트 등록
   useEffect(() => {
@@ -32,41 +36,64 @@ export default function ConversationPage() {
   }, [id]); // 질문 번호(id)가 바뀔 때마다 등록
 
   const startRecording = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    audioChunksRef.current = [];
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream, {
+        mimeType: 'audio/webm;codecs=opus',
+      });
 
-    const recorder = new MediaRecorder(stream, {
-      mimeType: 'audio/webm;codecs=opus',
-    });
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) audioChunksRef.current.push(e.data);
+      };
 
-    recorder.ondataavailable = (e) => {
-      if (e.data.size > 0) audioChunksRef.current.push(e.data);
-    };
+      recorder.onstop = handleStopRecording;
 
-    recorder.onstop = () => {
-      const blob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-      const url = URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `answer${id}.webm`;
-      a.click();
-
-      if (questionIndex < questions.length - 1) {
-        navigate(`/conversation/${questionIndex + 2}`);
-      } else {
-        navigate('/loading');
-      }
-    };
-
-    mediaRecorderRef.current = recorder;
-    recorder.start();
-    setIsRecording(true);
+      mediaRecorderRef.current = recorder;
+      recorder.start();
+      setIsRecording(true);
+    } catch (err) {
+      alert('마이크 접근을 허용해주시요!');
+      console.error("마이크 시작 오류:", err);
+    }
   };
 
   const stopRecording = () => {
-    mediaRecorderRef.current?.stop();
-    setIsRecording(false);
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+      mediaRecorderRef.current?.stop();
+      setIsRecording(false);
+    }
+  };
+
+  const handleStopRecording = async () => {
+    const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+    audioChunksRef.current = [];
+
+    const formData = new FormData();
+    formData.append('audio_file', audioBlob, `q${id}_answer.webm`);
+    formData.append('question_id', id);
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/diagnosis/upload-audio', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('서버에서 오류가 발생했습니다.');
+      }
+
+      const result = await response.json();
+      console.log('업로드 성공:', result);
+
+      if (currentQuestionId < totalQuestions) {
+        navigate(`/conversation/${currentQuestionId + 1}`);
+      } else {
+        navigate('/loading');
+      }
+    } catch (err) {
+      console.error('녹음 파일 업로드 실패:', err);
+      alert('녹음 파일 업로드에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
