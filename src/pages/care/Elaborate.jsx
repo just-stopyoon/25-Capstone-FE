@@ -1,26 +1,155 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import mindy from '../../images/mindy.png';
-import { talks } from './talks'; // 대화 내용 배열
 import './Elaborate.css'; // 동일한 스타일 재사용
 
-export default function TalkPage() {
-  return (
+const Elaborate = () => {
+	const [isRecording, setIsRecording] = useState(false);
+	const [isMindySpeaking, setIsMindySpeaking] = useState(false);
+	const [statusText, setStatusText] = useState("민디가 인사를 건낼 떄 까지 잠시 기다려주시요.");
+	const mediaRecorderRef = useRef(null);
+	const audioChunksRef = useRef([]);
+	const audioPlayerRef = useRef(null);
+	const navigate = useNavigate();
+
+	const onAudioEnded = () => {
+		setIsMindySpeaking(false);
+		setStatusText("이제 말씀해주시요. 답변이 끝나면 '말 끝내기'를 눌러주세요.");
+	};
+
+	const stopRecordingAndSend = () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+      mediaRecorderRef.current.stop();
+    }
+  };
+
+  const playAudioFromUrl = async (url) => {
+    if (!audioPlayerRef.current) return;
+
+    audioPlayerRef.current.pause();
+    audioPlayerRef.current.src = "";
+
+    audioPlayerRef.current.src = url;
+    try {
+      await audioPlayerRef.current.play();
+      setIsMindySpeaking(true);
+      setStatusText("민디가 말하고 있어요...");
+    } catch (err) {
+      console.error("오디오 재생 오류: ", err);
+      if (err.name === 'NotAllowedError') {
+        setStatusText("소리를 들으려면 화면을 한 번 클릭해주시요.");
+        window.addEventListener('click', () => audioPlayerRef.current.play(), { once: true });
+      }
+    }
+  }
+
+  useEffect(() => {
+    playInitialGreeting();
+  }, []);
+
+  const playInitialGreeting = async () => {
+    setIsMindySpeaking(true);
+    setStatusText("민디가 말하고 있어요...");
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/care/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ text: "안녕하세요! 민디입니다. 오늘 하루는 어떠셨나요?" }),
+      });
+
+      if (!response.ok) throw new Error('초기 인사말 생성 실패');
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      await playAudioFromUrl(audioUrl);
+    } catch (err) {
+      console.error("초기 음성 재생 오류: ", err);
+      setStatusText("오류가 발생했어요. 새로고침 해주세요.");
+      setIsMindySpeaking(false);
+    }
+  };
+
+  const handleRecordingStop = async () => {
+    setIsRecording(false);
+    setStatusText("음성을 분석하고 있어요. 잠시만 기다려주시요...");
+
+    const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+    audioChunksRef.current = [];
+
+    try {
+      const aiTextResponse = "네, 그렇게 생각하시는군요. 더 자세히 이야기해주시곘어요?";
+
+      const response = await fetch('http://127.0.0.1:8000/api/care/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: aiTextResponse }),
+      });
+
+      if (!response.ok) throw new Error("TTS 서버 응답 오류");
+
+      const aiAudioBlob = await response.blob();
+      const aiAudioUrl = URL.createObjectURL(aiAudioBlob);
+      await playAudioFromUrl(aiAudioUrl);
+
+      if (audioPlayerRef.current) {
+        audioPlayerRef.current.src = aiAudioUrl;
+        audioPlayerRef.current.play();
+        setIsMindySpeaking(true);
+        setStatusText("민디가 말하고 있어요...");
+      }
+    } catch (err) {
+      console.error("대화 처리 오류: ", err);
+      setStatusText("오류가 발생했어요. 다시 시도해주시요.");
+      setIsMindySpeaking(false);
+    }
+  };
+
+  const startRecording = async() => {
+    if (isMindySpeaking) return;
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+      recorder.ondataavailable = (e) => audioChunksRef.current.push(e.data);
+      recorder.onstop = handleRecordingStop;
+      mediaRecorderRef.current = recorder;
+      recorder.start();
+      setIsRecording(true);
+      setStatusText("듣고 있어요. 편하게 말씀해주세요...");
+    } catch (err) {
+      alert('마이크 접근을 허용해주세요!');
+    }
+  }
+
+	return (
     <div className="elaborate-page">
       <section className="elaborate-header">
-        <h2>오늘은 무슨 일이 있었나요?</h2>
-        <p>
-          오늘 있었던 일을 편하게 말해보세요! <br/>
-          민디가 당신의 기억을 저장할게요
-        </p>
+        <h2>오늘 하루는 어땠나요?</h2>
+        <p>{statusText}</p>
       </section>
 
       <section>
-        <img src={mindy} alt="마인디" className="mindy-image" />
+        <img 
+          src={mindy} 
+          alt="마인디" 
+          className={`mindy-image ${isMindySpeaking ? 'speaking' : ''}`}
+        />
       </section>
 
-      <Link to="/care1" className="stop-elaborate-btn">기록 중단하기</Link>
+      <div className='chat-controls'>
+        {isRecording ? (
+          <button onClick={stopRecordingAndSend} className='stop-btn'>말 끝내기</button>
+        ) : (
+          <button onClick={startRecording} className='start-btn' disabled={isMindySpeaking}>
+            {isMindySpeaking ? '민디가 말하는 중' : '마이크 누르고 말하기'}
+          </button>
+        )}
+      </div>
+
+      <button onClick={() => navigate('/care')} className='end-chat-btn'>대화 종료하기</button>
+
+      <audio ref={audioPlayerRef} onEnded={onAudioEnded} preload='auto' />
     </div>
   );
-}
+};
+
+export default Elaborate;

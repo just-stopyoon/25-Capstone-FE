@@ -1,7 +1,12 @@
 .elaborate-page {
     background-color: #F2F2F2;
-    padding: 20px 20px;
+    padding: 40px 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(100vh - 160px);
     box-sizing: border-box;
     font-family: 'Pretendard', sans-serif;
 }
@@ -9,7 +14,7 @@
 .elaborate-header h2 {
     font-size: 36px;
     font-weight: 700;
-    margin-top: 10px;
+    margin-top: 0;
     margin-bottom: 8px;
 }
 
@@ -18,40 +23,85 @@
     font-weight: 500;
     color: #555;
     line-height: 1.5;
+    min-height: 27px;
+
+.mindy-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.mindy-image{
-  height : 330px;
-  width : 330px;
-  margin-bottom: 10px;
+.mindy-image {
+  width: 330px;
+  height: 330px;
+  transition: transform 0.3s ease-in-out;
 }
 
-.stop-elaborate-btn {
-  padding: 16px 120px;
-  font-size: 18px;
-  font-weight: 600;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  text-align: center;
-  transition: background-color 0.2s;
+.mindy-image.speaking {
+  transform: scale(1.05);
+  animation: pulse 1.5s infinite;
 }
 
-.stop-elaborate-btn {
-      display: inline-block;
-    margin-top: 10px; /* 위에 gap 20px */
-    padding: 16px 120px;
-    background-color: #FF6E6E;
-    color: white;
-    text-decoration: none; /* 밑줄 제거 */
-    font-size: 18px;
+@keyframes pulse {
+  0% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+
+.chat-controls {
+    margin-bottom: 20px;
+}
+
+.start-btn, .stop-btn {
+    padding: 20px 80px;
+    font-size: 20px;
     font-weight: 600;
-    border-radius: 10px;
-    text-align: center;
+    border: none;
+    border-radius: 999px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-.stop-elaborate-btn:hover {
+.start-btn {
+  background-color: #7C88FF;
+  color: white;
+}
+.start-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.start-btn:not(:disabled):hover {
+  background-color: #5e6ce6;
+}
+.start-btn:active {
+    transform: scale(0.95);
+}
+
+.stop-btn {
+  background-color: #FF6E6E;
+  color: white;
+}
+.stop-btn:hover {
   background-color: #e95757;
+}
+.stop-btn:active {
+    transform: scale(0.95);
+}
+
+
+.end-chat-btn {
+    background: none;
+    border: none;
+    color: #888;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 16px;
 }
