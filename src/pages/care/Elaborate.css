@@ -24,6 +24,7 @@
     color: #555;
     line-height: 1.5;
     min-height: 27px;
+}
 
 .mindy-container {
     flex-grow: 1;
