@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCare } from '../../context/CareContext';
 import mindy from '../../images/mindy.png';
 import './Elaborate.css'; // 동일한 스타일 재사용
 
@@ -11,11 +12,12 @@ const Elaborate = () => {
 	const audioChunksRef = useRef([]);
 	const audioPlayerRef = useRef(null);
 	const navigate = useNavigate();
+	const { markTodayAsCompleted } = useCare();
 
-	const onAudioEnded = () => {
+	const onAudioEnded = useCallback(() => {
 		setIsMindySpeaking(false);
 		setStatusText("이제 말씀해주시요. 답변이 끝나면 '말 끝내기'를 눌러주세요.");
-	};
+	}, []);
 
 	const stopRecordingAndSend = () => {
     if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
@@ -23,7 +25,7 @@ const Elaborate = () => {
     }
   };
 
-  const playAudioFromUrl = async (url) => {
+  const playAudioFromUrl = useCallback(async (url) => {
     if (!audioPlayerRef.current) return;
 
     audioPlayerRef.current.pause();
@@ -41,13 +43,9 @@ const Elaborate = () => {
         window.addEventListener('click', () => audioPlayerRef.current.play(), { once: true });
       }
     }
-  }
-
-  useEffect(() => {
-    playInitialGreeting();
   }, []);
 
-  const playInitialGreeting = async () => {
+  const playInitialGreeting = useCallback(async () => {
     setIsMindySpeaking(true);
     setStatusText("민디가 말하고 있어요...");
     try {
@@ -67,13 +65,17 @@ const Elaborate = () => {
       setStatusText("오류가 발생했어요. 새로고침 해주세요.");
       setIsMindySpeaking(false);
     }
-  };
+  }, [playAudioFromUrl]);
 
-  const handleRecordingStop = async () => {
+  useEffect(() => {
+    playInitialGreeting();
+  }, [playInitialGreeting]);
+
+  const handleRecordingStop = useCallback(async () => {
     setIsRecording(false);
     setStatusText("음성을 분석하고 있어요. 잠시만 기다려주시요...");
 
-    const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+    // const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
     audioChunksRef.current = [];
 
     try {
@@ -102,9 +104,9 @@ const Elaborate = () => {
       setStatusText("오류가 발생했어요. 다시 시도해주시요.");
       setIsMindySpeaking(false);
     }
-  };
+  }, [playAudioFromUrl]);
 
-  const startRecording = async() => {
+  const startRecording = useCallback(async() => {
     if (isMindySpeaking) return;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -118,7 +120,13 @@ const Elaborate = () => {
     } catch (err) {
       alert('마이크 접근을 허용해주세요!');
     }
-  }
+  }, [isMindySpeaking, handleRecordingStop]);
+
+	const handleEndConversation = useCallback(async () => {
+		await markTodayAsCompleted();
+		alert("오늘의 대화가 기록되었습니다.");
+		navigate('/care');
+	}, [markTodayAsCompleted, navigate]);
 
 	return (
     <div className="elaborate-page">
@@ -145,7 +153,7 @@ const Elaborate = () => {
         )}
       </div>
 
-      <button onClick={() => navigate('/care')} className='end-chat-btn'>대화 종료하기</button>
+      <button onClick={handleEndConversation} className='end-chat-btn'>대화 종료하기</button>
 
       <audio ref={audioPlayerRef} onEnded={onAudioEnded} preload='auto' />
     </div>

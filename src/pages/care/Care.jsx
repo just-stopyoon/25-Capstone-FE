@@ -3,8 +3,14 @@ import './Care.css';
 import { Link } from 'react-router-dom';
 import checkOn from '../../images/check-on.png';
 import checkOff from '../../images/check-off.png';
+import { useCare } from '../../context/CareContext';
 
 export default function Care() {
+	const { weeklyRecords } = useCare();
+  const today = new Date();
+  const todayIndex = today.getDay() === 0 ? 6 : today.getDay() - 1;
+  const isTodayRecorded = weeklyRecords[todayIndex];
+
   return (
     <div className="care-page">
       <section className="care-header">
@@ -22,7 +28,7 @@ export default function Care() {
           {['월', '화', '수', '목', '금', '토', '일'].map((day, idx) => (
             <div className="day-check" key={day}>
               <img
-                src={idx < 2 ? checkOn : checkOff}
+                src={weeklyRecords[idx] ? checkOn : checkOff}
                 alt="체크"
               />
               <span>{day}</span>
@@ -32,7 +38,11 @@ export default function Care() {
       </section>
 
       <div className="prepare">
-        <h2>아직 오늘 일상이 기록되지 않았어요!</h2>
+        {isTodayRecorded ? (
+          <h2 className='completed-message'>오늘의 기록을 완료했어요, 내일 또 만나요!</h2>
+        ) : (
+          <h2>아직 오늘 일상이 기록되지 않았어요!</h2>
+        )}
       </div>
 
       <Link to="/elaborate" className="start-elaborate-btn">기록 시작하기</Link>

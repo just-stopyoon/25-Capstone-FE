@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 
 import { AuthProvider } from './context/AuthContext';
+import { CareProvider } from './context/CareContext';
 
 import Home from './pages/start/Home';
 import About from './pages/start/About';
@@ -24,10 +25,11 @@ export default function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <Router>
-          <Navbar />
-          <main className="main-content">
-            <Routes>
+        <CareProvider>
+          <Router>
+            <Navbar />
+            <main className="main-content">
+              <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/support" element={<Support />} />
@@ -42,10 +44,11 @@ export default function App() {
               <Route path="/care" element={<Care />} />
               <Route path="/elaborate" element={<Elaborate />} />
               <Route path="/care1" element={<Care1 />} />
-            </Routes>
-          </main>
-          <Footer />
-        </Router> 
+              </Routes>
+            </main>
+            <Footer />
+          </Router> 
+        </CareProvider>
       </AuthProvider>
     </div>
   );
