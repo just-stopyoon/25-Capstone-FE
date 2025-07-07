@@ -23,8 +23,15 @@ export const questions = [
     `Look at the letter pattern.
     Say the next two letters that fit the sequence:
     
-    A, B, C, ?, ?`,
-    "Please name as many fruits or vegetables as you can.",
-    `Does this item bring back any memories?
-    Could you also tell me how you used it?`
+    A, B, ?, ?, E`,
+
+    `Does school bring back any memories?
+    Could you also tell me how you used it?`,
+
+    `Please express the taste and thougths of cookies`,
+
+    `Does shoes bring back any memories?
+    Could you also tell me how you used it?`,
+
+    "Please name as many fruits or vegetables as you can."
     ];

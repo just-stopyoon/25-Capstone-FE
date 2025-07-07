@@ -1,6 +1,7 @@
 import React from 'react';
 import './Report.css';
 import warning from '../../images/warning.png';
+import congratulation from '../../images/firework.png';
 import good from '../../images/good.png';
 import bad from '../../images/bad.png';
 
@@ -11,10 +12,10 @@ export default function Report() {
 
         {/* 알림 영역 */}
         <div className="report-alert-horizontal">
-          <img src={warning} alt="경고" className="alert-icon" />
+          <img src={congratulation} alt="경고" className="alert-icon" />
           <div className="alert-text">
-            <h2><span className="red">경미한 인지 저하</span>가 감지되었습니다</h2>
-            <p className="alert-desc">자세한 검사를 위해 병원 방문을 추천드려요</p>
+            <h2>인지 기능이 <span className="green">건강한 상태</span>입니다</h2>
+            <p className="alert-desc">방심은 금물! 지금처럼 꾸준히 관리해주세요</p>
           </div>
         </div>
 
@@ -23,11 +24,11 @@ export default function Report() {
           <div className="score-box">
             <p className="score-label">마인디가 예상하는 치매 정도</p>
             <div className="score-info-wrapper">
-              <div className="score-circle">64점</div>
+              <div className="score-circle">86점</div>
               <ul className="score-range">
                 <li>80점 이상 : 정상</li>
-                <li>31점 ~ 79점 : 치매 위험</li>
-                <li>30점 이하 : 치매</li>
+                <li>51점 ~ 79점 : 인지 저하</li>
+                <li>50점 이하 : 치매 의심</li>
               </ul>
             </div>
           </div>
