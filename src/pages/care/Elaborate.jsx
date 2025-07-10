@@ -49,14 +49,10 @@ const Elaborate = () => {
     setIsMindySpeaking(true);
     setStatusText("민디가 말하고 있어요...");
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/care/chat', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ text: "안녕하세요! 민디입니다. 오늘 하루는 어떠셨나요?" }),
+      const response = await fetch('http://127.0.0.1:8000/api/care/greeting', {
+        method: 'POST'
       });
-
       if (!response.ok) throw new Error('초기 인사말 생성 실패');
-
       const audioBlob = await response.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
       await playAudioFromUrl(audioUrl);
@@ -75,16 +71,21 @@ const Elaborate = () => {
     setIsRecording(false);
     setStatusText("음성을 분석하고 있어요. 잠시만 기다려주시요...");
 
+    // 실제로는 음성 인식 API를 통해 텍스트를 얻어야 함
+    // 여기서는 예시로 prompt 창을 띄워 텍스트를 입력받음
     // const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
     audioChunksRef.current = [];
-
+    let userText = window.prompt("방금 말씀하신 내용을 텍스트로 입력해 주세요 (음성 인식 대체)");
+    if (!userText) {
+      setStatusText("입력이 없어 대화를 종료합니다.");
+      return;
+    }
     try {
-      const aiTextResponse = "네, 그렇게 생각하시는군요. 더 자세히 이야기해주시곘어요?";
-
+      // 백엔드에 사용자의 텍스트를 전달하여 AI 답변을 받아옴
       const response = await fetch('http://127.0.0.1:8000/api/care/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: aiTextResponse }),
+        body: JSON.stringify({ text: userText }),
       });
 
       if (!response.ok) throw new Error("TTS 서버 응답 오류");
