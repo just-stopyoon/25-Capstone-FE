@@ -69,40 +69,33 @@ const Elaborate = () => {
 
   const handleRecordingStop = useCallback(async () => {
     setIsRecording(false);
-    setStatusText("음성을 분석하고 있어요. 잠시만 기다려주시요...");
+    setStatusText("답변을 분석하고 있어요. 잠시만 기다려주세요...");
 
-    // 실제로는 음성 인식 API를 통해 텍스트를 얻어야 함
-    // 여기서는 예시로 prompt 창을 띄워 텍스트를 입력받음
-    // const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+    const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
     audioChunksRef.current = [];
-    let userText = window.prompt("방금 말씀하신 내용을 텍스트로 입력해 주세요 (음성 인식 대체)");
-    if (!userText) {
-      setStatusText("입력이 없어 대화를 종료합니다.");
-      return;
-    }
+
+    const formData = new FormData();
+    formData.append('file', audioBlob, 'recording.webm');
     try {
-      // 백엔드에 사용자의 텍스트를 전달하여 AI 답변을 받아옴
-      const response = await fetch('http://127.0.0.1:8000/api/care/chat', {
+      const response = await fetch('http://127.0.0.1:8000/api/care/audio-to-answer', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: userText }),
+        body: formData,
       });
+      if (!response.ok) throw new Error('오디오 업로드 실패');
 
-      if (!response.ok) throw new Error("TTS 서버 응답 오류");
-
-      const aiAudioBlob = await response.blob();
-      const aiAudioUrl = URL.createObjectURL(aiAudioBlob);
-      await playAudioFromUrl(aiAudioUrl);
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      await playAudioFromUrl(audioUrl);
 
       if (audioPlayerRef.current) {
-        audioPlayerRef.current.src = aiAudioUrl;
+        audioPlayerRef.current.src = audioUrl;
         audioPlayerRef.current.play();
         setIsMindySpeaking(true);
         setStatusText("민디가 말하고 있어요...");
       }
     } catch (err) {
       console.error("대화 처리 오류: ", err);
-      setStatusText("오류가 발생했어요. 다시 시도해주시요.");
+      setStatusText("오류가 발생했어요. 다시 시도해주세요.");
       setIsMindySpeaking(false);
     }
   }, [playAudioFromUrl]);
