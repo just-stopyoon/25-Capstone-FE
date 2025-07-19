@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Account.css";
 import mindy from "../../images/mindy.png";
+import EditModal from "./Account/EditModal"; // 모달 컴포넌트 import
 
 export default function Account() {
+  const [showModal, setShowModal] = useState(false); // 모달 상태
+
   return (
     <div className="account-page">
-      <div className="account-wrapper">
+      {/* 모달창 */}
+      {showModal && <EditModal onClose={() => setShowModal(false)} />}
 
+      <div className="account-wrapper">
         {/* 상단 카드 */}
         <div className="account-card">
           <div className="account-left">
@@ -25,20 +30,27 @@ export default function Account() {
           </div>
           <div className="account-actions">
             <a href="#" className="action-link">구독 관리 →</a>
-            <a href="#" className="action-link">회원정보 수정 →</a>
+            <a
+              href="#"
+              className="action-link"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowModal(true);
+              }}
+            >
+              회원정보 수정 →
+            </a>
           </div>
         </div>
 
         {/* 진단 결과 + 관리 카드 */}
         <div className="account-section-grid">
-
-          {/* 진단 결과 카드 */}
+          {/* 치매 진단 결과 카드 */}
           <div className="result-card">
             <div className="result-header">
               <h3>치매 진단 결과</h3>
               <span className="date-label">마지막 진단일 : 2025-06-24 (34일 전)</span>
             </div>
-
             <div className="result-body">
               <div className="score-and-status">
                 <div className="score-circle">64점</div>
@@ -68,10 +80,11 @@ export default function Account() {
               <p className="care-progress">
                 <strong className="highlight">32일째</strong> 진행 중
               </p>
-              <button className="track-button">대화 내용 추적 결과 보기</button>
+              <div className="button-wrapper">
+                <button className="track-button">대화 내용 추적 결과 보기</button>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
