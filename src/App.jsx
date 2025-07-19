@@ -8,7 +8,7 @@ import { CareProvider } from './context/CareContext';
 
 import Home from './pages/start/Home';
 import About from './pages/start/About';
-import Support from './pages/start/Support';
+import Account from './pages/start/Account';
 import Login from './pages/start/Login';
 import SignUp from './pages/start/SignUp';
 
@@ -32,7 +32,7 @@ export default function App() {
               <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-              <Route path="/support" element={<Support />} />
+              <Route path="/account" element={<Account />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
 

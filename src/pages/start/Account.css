@@ -1,0 +1,265 @@
+/* 전체 페이지 */
+.account-page {
+  background-color: #f5f5f5;
+  padding: 60px 40px 40px;
+  font-family: 'Pretendard', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+/* 중앙 래퍼 */
+.account-wrapper {
+  width: 100%;
+  max-width: 1080px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 상단 카드 */
+.account-card {
+  width: 90%;
+  background-color: white;
+  border-radius: 20px;
+  padding: 32px 48px;
+  margin: 0 40px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 프로필 왼쪽 */
+.account-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+}
+
+/* 텍스트 영역 */
+.account-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.account-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.highlight-name {
+  color: #7B84FF;
+}
+
+.plus-badge {
+  background-color: #EAEAFF;
+  color: #7B84FF;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 8px;
+  margin-left: 10px;
+}
+
+.account-info {
+  margin-top: 5px;
+  font-size: 18px;
+  color: #333;
+  display: flex;
+  gap: 28px;
+}
+
+/* 우측 링크 */
+.account-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: -10px;
+}
+
+.action-link {
+  font-size: 16px;
+  color: #666;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* 하단 진단 + 관리 카드 */
+.account-section-grid {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+/* 치매 진단 카드 */
+.result-card {
+  flex: 1;
+  min-width: 550px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.result-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.result-header h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.date-label {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #999;
+}
+
+/* 점수 + 상태 */
+.result-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.score-and-status {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.score-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 12px solid #7C88FF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #7C88FF;
+}
+
+/* 상태 + 피드백 */
+.status-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.status-bad {
+  font-size: 24px;
+  font-weight: 700;
+  color: #d94848;
+  margin-bottom: 8px;
+}
+
+/* 피드백 1열 2행 */
+.result-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+  row-gap: 4px;
+}
+
+.result-col p {
+  margin: 4px 0;
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.status-good {
+  color: #448939;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.status-improve {
+  color: #d94848;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* 치매 관리 카드 */
+.care-card {
+  flex: 1;
+  min-width: 300px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.care-card-header h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+}
+
+.care-progress {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.care-progress .highlight {
+  font-size: 28px;
+  color: #7C88FF;
+  font-weight: 700;
+}
+
+/* 버튼 */
+.track-button {
+  padding: 12px 32px;
+  font-size: 18px;
+  background-color: #7C88FF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-self: center; /* flexbox 자식 기준 중앙 정렬 */
+}
+
+
+
+.track-button:hover {
+  background-color: #5e6ce6;
+}
+
+.care-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 내부 요소 가운데 정렬 */
+}
