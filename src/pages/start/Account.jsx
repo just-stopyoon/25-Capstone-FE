@@ -1,18 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ 추가
 import "./Account.css";
 import mindy from "../../images/mindy.png";
-import EditModal from "./Account/EditModal"; // 모달 컴포넌트 import
+import EditModal from "./Account/EditModal";
 
 export default function Account() {
-  const [showModal, setShowModal] = useState(false); // 모달 상태
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate(); // ✅ 추가
 
   return (
     <div className="account-page">
-      {/* 모달창 */}
       {showModal && <EditModal onClose={() => setShowModal(false)} />}
 
       <div className="account-wrapper">
-        {/* 상단 카드 */}
         <div className="account-card">
           <div className="account-left">
             <img src={mindy} alt="프로필 캐릭터" className="profile-image" />
@@ -28,8 +28,19 @@ export default function Account() {
               </div>
             </div>
           </div>
+
           <div className="account-actions">
-            <a href="#" className="action-link">구독 관리 →</a>
+            <a
+              href="#"
+              className="action-link"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/subscribe"); // ✅ 경로 이동
+              }}
+            >
+              구독 관리 →
+            </a>
+
             <a
               href="#"
               className="action-link"
@@ -43,9 +54,7 @@ export default function Account() {
           </div>
         </div>
 
-        {/* 진단 결과 + 관리 카드 */}
         <div className="account-section-grid">
-          {/* 치매 진단 결과 카드 */}
           <div className="result-card">
             <div className="result-header">
               <h3>치매 진단 결과</h3>
@@ -71,15 +80,14 @@ export default function Account() {
             </div>
           </div>
 
-          {/* 치매 관리 카드 */}
-          <div className="care-card">
-            <div className="care-card-header">
+          <div className="account-care-card">
+            <div className="account-care-card-header">
               <h3>치매 관리</h3>
             </div>
-            <div className="care-card-body">
-              <p className="care-progress">
-                <strong className="highlight">32일째</strong> 진행 중
-              </p>
+            <div className="account-care-card-body">
+                 <div className="account-care-progress">
+                 <span className="highlight">32일째</span> 진행 중
+                </div>
               <div className="button-wrapper">
                 <button className="track-button">대화 내용 추적 결과 보기</button>
               </div>

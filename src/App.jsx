@@ -8,9 +8,11 @@ import { CareProvider } from './context/CareContext';
 
 import Home from './pages/start/Home';
 import About from './pages/start/About';
-import Account from './pages/start/Account';
 import Login from './pages/start/Login';
 import SignUp from './pages/start/SignUp';
+
+import Account from './pages/start/Account';
+import Subscribe from './pages/start/Account/Subscribe';
 
 import Diagnosis from './pages/diagnosis/Diagnosis';
 import ConversationPage from './pages/diagnosis/conversation/ConversationPage';
@@ -32,9 +34,11 @@ export default function App() {
               <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-              <Route path="/account" element={<Account />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
+
+              <Route path="/account" element={<Account />} />
+              <Route path="/subscribe" element={<Subscribe />} />
 
               <Route path="/diagnosis" element={<Diagnosis />} />
               <Route path="/conversation/:id" element={<ConversationPage />} />

@@ -1,0 +1,116 @@
+.subscribe-page {
+  padding: 20px 24px;
+  text-align: center;
+  font-family: 'Pretendard', sans-serif;
+  background-color: #F2F2F2;
+}
+
+.subscribe-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.subscribe-subtitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: #555;
+  line-height : 1.5;
+  margin-bottom: 64px;
+}
+/* 카드 전체 배치 */
+.plan-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+/* 개별 카드 */
+.plan-card {
+  width: 280px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 40px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plan-type {
+  font-size: 18px;
+  font-weight: 600;
+  margin : 0px;
+  margin-bottom : 5px;
+  color: #606367;
+}
+
+.plan-price {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top : 5px;
+  margin-bottom: 24px;
+  color: #000;
+}
+
+/* 현재 요금제 버튼 */
+.current-plan {
+  padding: 12px 48px;
+  font-size: 18px;
+    font-weight : 400;
+  background-color: #aaa;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  cursor: default;
+}
+
+/* 시작하기 버튼 */
+.start-button {
+  padding: 12px 32px;
+  font-size: 18px;
+  font-weight : 400;
+  background-color: #7B84FF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.start-button:hover {
+  background-color: #5f6de0;
+}
+
+/* 기능 목록 */
+.plan-features {
+  list-style: none;
+  padding-left: 30px;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight : 500;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.plan-features li img {
+  width: 18px;
+  height: 18px;
+}
+
+/* 사용할 수 없는 기능 비활성화 */
+.plan-features .disabled {
+  color: #aaa;
+}

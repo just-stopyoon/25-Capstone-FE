@@ -207,36 +207,41 @@
 }
 
 /* 치매 관리 카드 */
-.care-card {
+.account-care-card {
   flex: 1;
   min-width: 300px;
   background-color: white;
   border-radius: 20px;
-  padding: 30px 40px;
+  padding: 20px 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap : 0px;
 }
 
-.care-card-header h3 {
+.account-care-card-header h3 {
   font-size: 24px;
   font-weight: 700;
-  margin: 0 0 20px 0;
+  margin: 0;
 }
 
-.care-progress {
+/* 오타 수정 및 여백 제거 */
+.account-care-progress {
   font-size: 22px;
   color: #333;
-  margin-bottom: 40px;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
-.care-progress .highlight {
+
+.account-care-progress .highlight {
   font-size: 28px;
   color: #7C88FF;
   font-weight: 700;
 }
+
 
 /* 버튼 */
 .track-button {
@@ -258,8 +263,12 @@
   background-color: #5e6ce6;
 }
 
-.care-card-body {
+.account-care-card-body {
   display: flex;
   flex-direction: column;
-  align-items: center; /* 내부 요소 가운데 정렬 */
+  align-items: center;
+  justify-content: center;  /* ✅ 추가: 세로 정렬 */
+  gap: 8px; /* ✅ 적당한 간격으로 조절 (0도 가능) */
+  margin: 0; /* ✅ 꼭 명시 */
+  padding: 0;
 }
