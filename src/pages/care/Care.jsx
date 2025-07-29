@@ -6,10 +6,23 @@ import checkOff from '../../images/check-off.png';
 import { useCare } from '../../context/CareContext';
 
 export default function Care() {
-	const { weeklyRecords } = useCare();
+	const { weeklyRecords, weeklyStatus } = useCare();
   const today = new Date();
   const todayIndex = today.getDay() === 0 ? 6 : today.getDay() - 1;
   const isTodayRecorded = weeklyRecords[todayIndex];
+
+  // 주간 통계 계산
+  const getWeeklyStats = () => {
+    if (!weeklyStatus) return null;
+    
+    return {
+      totalConversations: weeklyStatus.total_conversations || 0,
+      completedDays: weeklyStatus.completed_days || 0,
+      completionRate: Math.round((weeklyStatus.completion_rate || 0) * 100)
+    };
+  };
+
+  const stats = getWeeklyStats();
 
   return (
     <div className="care-page">
@@ -22,8 +35,27 @@ export default function Care() {
       </section>
 
       <section className="record-status">
-        <h3>일일 기록 현황</h3>
+        <h3>주간 기록 현황</h3>
         <p>기록은 매주 월요일에 시작됩니다</p>
+        
+        {/* 주간 통계 표시 */}
+        {stats && (
+          <div className="weekly-stats">
+            <div className="stat-item">
+              <span className="stat-number">{stats.totalConversations}</span>
+              <span className="stat-label">총 대화 수</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">{stats.completedDays}</span>
+              <span className="stat-label">완료한 날</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">{stats.completionRate}%</span>
+              <span className="stat-label">완료율</span>
+            </div>
+          </div>
+        )}
+        
         <div className="week-checklist">
           {['월', '화', '수', '목', '금', '토', '일'].map((day, idx) => (
             <div className="day-check" key={day}>
@@ -32,6 +64,12 @@ export default function Care() {
                 alt="체크"
               />
               <span>{day}</span>
+              {/* 대화 횟수 표시 */}
+              {weeklyStatus?.daily_status?.[idx]?.conversation_count > 0 && (
+                <span className="conversation-count">
+                  {weeklyStatus.daily_status[idx].conversation_count}
+                </span>
+              )}
             </div>
           ))}
         </div>
