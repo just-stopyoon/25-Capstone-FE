@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './Report.css';
@@ -9,18 +9,18 @@ import bad from '../../images/bad.png';
 
 export default function Report() {
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isLoading } = useAuth();
   const [diagnosisResult, setDiagnosisResult] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const checkLoginStatus = useCallback(() => {
-		const token = localStorage.getItem('accessToken');
-		return isLoggedIn || !!token;
-	}, [isLoggedIn]);
-
   useEffect(() => {
+    // AuthContext가 로딩 중이면 대기
+    if (isLoading) {
+      return;
+    }
+
     // 로그인 상태 확인
-    if (!checkLoginStatus()) {
+    if (!isLoggedIn) {
       alert('로그인이 필요합니다.');
       navigate('/login');
       return;
@@ -43,7 +43,29 @@ export default function Report() {
       navigate('/diagnosis');
     }
     setLoading(false);
-  }, [navigate, isLoggedIn, checkLoginStatus]);
+  }, [navigate, isLoggedIn, isLoading]);
+
+  // AuthContext가 로딩 중이거나 컴포넌트가 로딩 중일 때
+  if (isLoading || loading) {
+    return (
+      <div className="report-page">
+        <div className="report-container">
+          <p>결과를 불러오는 중...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // 로그인되지 않은 경우 (이미 useEffect에서 처리되지만 안전장치)
+  if (!isLoggedIn) {
+    return (
+      <div className="report-page">
+        <div className="report-container">
+          <p>로그인이 필요합니다.</p>
+        </div>
+      </div>
+    );
+  }
 
   // 상태에 따른 UI 요소
   const getStatusUI = (status) => {
@@ -82,21 +104,6 @@ export default function Report() {
         };
     }
   };
-
-  // 로그인하지 않은 경우 로딩 표시
-  if (!isLoggedIn) {
-    return <div>로그인 중...</div>;
-  }
-
-  if (loading) {
-    return (
-      <div className="report-page">
-        <div className="report-container">
-          <p>결과를 불러오는 중...</p>
-        </div>
-      </div>
-    );
-  }
 
   if (!diagnosisResult) {
     return (
