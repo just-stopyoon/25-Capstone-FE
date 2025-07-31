@@ -17,6 +17,7 @@ export default function ConversationPage() {
 
   const [isRecording, setIsRecording] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const questionAudioRef = useRef(null);
@@ -48,12 +49,6 @@ export default function ConversationPage() {
   }, [id]); // 질문 번호(id)가 바뀔 때마다 등록
 
   const startRecording = async () => {
-    if (!isLoggedIn) {
-      alert('로그인이 필요합니다.');
-      navigate('/login');
-      return;
-    }
-
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const recorder = new MediaRecorder(stream, {
@@ -83,8 +78,6 @@ export default function ConversationPage() {
   };
 
   const handleStopRecording = async () => {
-    if (!isLoggedIn) return;
-
     setIsUploading(true);
     const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
     audioChunksRef.current = [];
@@ -136,11 +129,6 @@ export default function ConversationPage() {
       setIsUploading(false);
     }
   };
-
-  // 로그인하지 않은 경우 로딩 표시
-  if (!isLoggedIn) {
-    return <div>로그인 중...</div>;
-  }
 
   return (
     <div className="conversation-page">

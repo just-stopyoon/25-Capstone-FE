@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import './Diagnosis.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaVolumeUp, FaMicrophone } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 
@@ -63,12 +63,6 @@ export default function Diagnosis() {
 
   // 진단 세션 시작
   const handleStartDiagnosis = async () => {
-    if (!isLoggedIn) {
-      alert('로그인이 필요합니다.');
-      navigate('/login');
-      return;
-    }
-
     setIsStarting(true);
     try {
       const response = await fetch('http://127.0.0.1:8000/api/diagnosis/start-diagnosis', {
@@ -100,11 +94,6 @@ export default function Diagnosis() {
       setIsStarting(false);
     }
   };
-
-  // 로그인하지 않은 경우 로딩 표시
-  if (!isLoggedIn) {
-    return <div>로그인 중...</div>;
-  }
 
   return (
     <div className="diagnosis-page">

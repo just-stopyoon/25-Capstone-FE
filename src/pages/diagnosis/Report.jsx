@@ -9,20 +9,13 @@ import bad from '../../images/bad.png';
 
 export default function Report() {
   const navigate = useNavigate();
-  const { isLoggedIn, isLoading } = useAuth();
+  const { isLoading } = useAuth();
   const [diagnosisResult, setDiagnosisResult] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // AuthContext가 로딩 중이면 대기
     if (isLoading) {
-      return;
-    }
-
-    // 로그인 상태 확인
-    if (!isLoggedIn) {
-      alert('로그인이 필요합니다.');
-      navigate('/login');
       return;
     }
 
@@ -43,7 +36,7 @@ export default function Report() {
       navigate('/diagnosis');
     }
     setLoading(false);
-  }, [navigate, isLoggedIn, isLoading]);
+  }, [navigate, isLoading]);
 
   // AuthContext가 로딩 중이거나 컴포넌트가 로딩 중일 때
   if (isLoading || loading) {
@@ -51,17 +44,6 @@ export default function Report() {
       <div className="report-page">
         <div className="report-container">
           <p>결과를 불러오는 중...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // 로그인되지 않은 경우 (이미 useEffect에서 처리되지만 안전장치)
-  if (!isLoggedIn) {
-    return (
-      <div className="report-page">
-        <div className="report-container">
-          <p>로그인이 필요합니다.</p>
         </div>
       </div>
     );

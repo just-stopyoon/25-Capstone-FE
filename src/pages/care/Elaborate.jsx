@@ -13,6 +13,7 @@ const Elaborate = () => {
 	const [messages, setMessages] = useState([
 		{ role: "system", content: "당신은 노인과 따뜻한 일상 대화를 나누는 역할을 합니다." }
 	]);
+
 	const mediaRecorderRef = useRef(null);
 	const audioChunksRef = useRef([]);
 	const audioPlayerRef = useRef(null);
@@ -50,8 +51,6 @@ const Elaborate = () => {
   }, []);
 
   const playInitialGreeting = useCallback(async () => {
-    if (!isLoggedIn) return;
-
     setIsMindySpeaking(true);
     setStatusText("민디가 말하고 있어요...");
     try {
@@ -75,15 +74,9 @@ const Elaborate = () => {
       setStatusText("오류가 발생했어요. 새로고침 해주세요.");
       setIsMindySpeaking(false);
     }
-  }, [playAudioFromUrl, isLoggedIn, navigate]);
+  }, [playAudioFromUrl, navigate]);
 
 	useEffect(() => {
-		if (!isLoggedIn) {
-			alert('로그인이 필요합니다.');
-			navigate('/login');
-			return;
-    }
-
     playInitialGreeting();
 
 		const fetchConversationId = async () => {
@@ -108,7 +101,7 @@ const Elaborate = () => {
 			}
 		};
 		fetchConversationId();
-	}, [playInitialGreeting, isLoggedIn, navigate]);
+	}, [playInitialGreeting, navigate]);
 
 	const onAudioEnded = useCallback(() => {
 		setIsMindySpeaking(false);
@@ -116,14 +109,12 @@ const Elaborate = () => {
 	}, []);
 
 	const stopRecordingAndSend = () => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
-      mediaRecorderRef.current.stop();
-    }
-  };
+		if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+			mediaRecorderRef.current.stop();
+		}
+	};
 
   const handleRecordingStop = useCallback(async () => {
-    if (!isLoggedIn) return;
-
     setIsRecording(false);
     setStatusText("답변을 분석하고 있어요. 잠시만 기다려주세요...");
 
@@ -187,10 +178,10 @@ const Elaborate = () => {
       setStatusText("오류가 발생했어요. 다시 시도해주세요.");
       setIsMindySpeaking(false);
     }
-  }, [playAudioFromUrl, messages, conversationId, isLoggedIn, navigate]);
+  }, [playAudioFromUrl, messages, conversationId, navigate]);
 
   const startRecording = useCallback(async() => {
-    if (isMindySpeaking || !isLoggedIn) return;
+    if (isMindySpeaking) return;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
@@ -203,11 +194,11 @@ const Elaborate = () => {
     } catch (err) {
       alert('마이크 접근을 허용해주세요!');
     }
-  }, [isMindySpeaking, handleRecordingStop, isLoggedIn]);
+  }, [isMindySpeaking, handleRecordingStop]);
 
 	const handleEndConversation = useCallback(async () => {
-		if (!conversationId || !isLoggedIn) {
-			alert('대화 세션 ID가 없거나 로그인이 필요합니다.');
+		if (!conversationId) {
+			alert('대화 세션 ID가 없습니다.');
 			return;
 		}
 		try {
@@ -245,12 +236,7 @@ const Elaborate = () => {
 		} catch (err) {
 			alert('대화 세션 종료 중 오류가 발생했습니다.');
 		}
-	}, [conversationId, navigate, isLoggedIn]);
-
-	// 로그인하지 않은 경우 로딩 표시
-	if (!isLoggedIn) {
-		return <div>로그인 중...</div>;
-	}
+	}, [conversationId, navigate]);
 
 	return (
     <div className="elaborate-page">

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 import './Loading.css';
 
 export default function Loading() {
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
-  const [loadingText, setLoadingText] = useState('마인디가 결과를 분석하고 있어요!');
+  const [loadingText] = useState('마인디가 결과를 분석하고 있어요!');
   const [dots, setDots] = useState('');
 
   // 로딩 애니메이션
@@ -22,12 +20,6 @@ export default function Loading() {
   useEffect(() => {
     // 최종 진단 제출
     const submitFinalDiagnosis = async () => {
-      if (!isLoggedIn) {
-        alert('로그인이 필요합니다.');
-        navigate('/login');
-        return;
-      }
-
       try {
         const sessionId = localStorage.getItem('diagnosis_session_id');
         
@@ -53,6 +45,7 @@ export default function Loading() {
         }
 
         const result = await response.json();
+        localStorage.setItem('diagnosis_result', JSON.stringify(result));
         console.log('진단 제출 성공:', result);
         
         // 세션 ID 제거
@@ -68,12 +61,7 @@ export default function Loading() {
     };
 
     submitFinalDiagnosis();
-  }, [navigate, isLoggedIn]);
-
-  // 로그인하지 않은 경우 로딩 표시
-  if (!isLoggedIn) {
-    return <div>로그인 중...</div>;
-  }
+  }, [navigate]);
 
   return (
     <div className="loading-page">
