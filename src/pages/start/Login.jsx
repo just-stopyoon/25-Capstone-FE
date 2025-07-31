@@ -29,7 +29,11 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        login(data.access_token);
+        // Access token과 refresh token을 함께 전달
+        login(data.access_token, data.refresh_token, {
+          phone: phone,
+          // 사용자 정보는 별도 API 호출로 가져올 수 있음
+        });
         alert('로그인 되었습니다.');
         navigate('/');
       } else {
