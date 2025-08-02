@@ -74,6 +74,11 @@ const AppContent = () => {
                 <Report />
               </ProtectedRoute>
             } />
+            <Route path="/report/:diagnosisId" element={
+              <ProtectedRoute>
+                <Report />
+              </ProtectedRoute>
+            } />
             
             <Route path="/care" element={
               <ProtectedRoute>

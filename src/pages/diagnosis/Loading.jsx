@@ -45,7 +45,6 @@ export default function Loading() {
         }
 
         const result = await response.json();
-        localStorage.setItem('diagnosis_result', JSON.stringify(result));
         console.log('진단 제출 성공:', result);
         
         // 세션 ID 제거
