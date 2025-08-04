@@ -1,6 +1,5 @@
 /* 페이지 전체 */
 .report-page {
-  background-color: #f5f5f5;
   max-height: 500vh;
   display: flex;
   justify-content: center;

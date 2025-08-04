@@ -108,7 +108,7 @@ export default function Report() {
         return {
           icon: congratulation,
           title: '건강한 상태',
-          desc: '방심은 금물! 지금처럼 꾸준히 관리해주세요',
+          desc: '방심은 금물! 지금처럼 꾸준히 관리해주세요.',
           color: 'green',
           scoreText: '정상'
         };
@@ -116,7 +116,7 @@ export default function Report() {
         return {
           icon: warning,
           title: '인지 저하 의심 상태',
-          desc: '정기적인 검사와 관리가 필요합니다',
+          desc: '정기적인 검진과 관리를 추천드려요.',
           color: 'orange',
           scoreText: '인지 저하'
         };
@@ -124,7 +124,7 @@ export default function Report() {
         return {
           icon: warning,
           title: '치매 의심 상태',
-          desc: '의료진과 상담을 권장합니다',
+          desc: '전문의 상담이 필요합니다.',
           color: 'red',
           scoreText: '치매 의심'
         };
@@ -162,7 +162,7 @@ export default function Report() {
         <div className="report-alert-horizontal">
           <img src={statusUI.icon} alt="경고" className="alert-icon" />
           <div className="alert-text">
-            <h2>인지 기능이 <span className={statusUI.color}>{statusUI.title}</span>입니다</h2>
+            <h2>{diagnosisResult.user_name}님은 <span className={statusUI.color}>{statusUI.title}</span>입니다</h2>
             <p className="alert-desc">{statusUI.desc}</p>
           </div>
         </div>
