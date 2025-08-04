@@ -31,7 +31,7 @@ export default function ConversationPage() {
     };
   };
 
-  // ✅ 페이지마다 질문 오디오 재생을 위한 클릭 이벤트 등록
+  // ✅ 페이지 로드 시 자동으로 질문 오디오 재생
   useEffect(() => {
     const playQuestionAudio = async () => {
       try {
@@ -41,12 +41,11 @@ export default function ConversationPage() {
       } catch (err) {
         console.warn('음성 재생 실패:', err);
       }
-      window.removeEventListener('click', playQuestionAudio);
     };
 
-    window.addEventListener('click', playQuestionAudio);
-    return () => window.removeEventListener('click', playQuestionAudio);
-  }, [id]); // 질문 번호(id)가 바뀔 때마다 등록
+    // 페이지 로드 시 자동 재생
+    playQuestionAudio();
+  }, [id]); // 질문 번호(id)가 바뀔 때마다 재생
 
   const startRecording = async () => {
     try {
