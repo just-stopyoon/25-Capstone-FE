@@ -84,10 +84,10 @@ export default function Account() {
             <div className="account-care-card-header">
               <h3>치매 관리</h3>
             </div>
+            <div className="account-care-progress">
+              <span className="highlight">32일째</span> 진행 중
+            </div>
             <div className="account-care-card-body">
-                 <div className="account-care-progress">
-                 <span className="highlight">32일째</span> 진행 중
-                </div>
               <div className="button-wrapper">
                 <button className="track-button">대화 내용 추적 결과 보기</button>
               </div>
