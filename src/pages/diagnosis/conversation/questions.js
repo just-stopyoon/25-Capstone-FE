@@ -1,37 +1,37 @@
 export const questions = [
-    "What year is it?",
-    "What month is it now?",
-    "What is today's date?",
-    "What day of the week is it today?",
-    "What season is it now?",
-    `Please remember the following sentence:
+    "지금은 몇 년도인가요?",
+    "지금은 몇 월인가요?",
+    "오늘은 몇 일인가요?",
+    "오늘은 무슨 요일인가요?",
+    "지금은 어떤 계절인가요?",
+    `지금 말하는 문장을 기억해주세요.:
 
-    “Minsoo rode his bicycle to the park and played baseball starting at 11 o'clock.”`,
-    "Please repeat the numbers in the exact order I say them.",
-    "Please repeat the numbers in the exact order I say them.",
-    "Please repeat the word I say, but in reverse order.",
-    "Please repeat the sentence I asked you to remember.",
-    "What was the boy's name mentioned in the sentence?",
-    "What did he ride to get there?",
-    "Where did he go?",
-    "What did he do there?",
-    "What time did he start?",
-    `Look at the number pattern.
-    Say the number that should come next 
+    "민수는 자전거를 타고 공원에 가서 11시에 야구를 했습니다."`,
+    "제가 말하는 숫자를 순서대로 따라 말씀해주세요.",
+    "제가 말하는 숫자를 순서대로 따라 말씀해주세요.",
+    "제가 말하는 단어를 거꾸로 말씀해주세요.",
+    "조금 전에 외워달라고 했던 문장을 다시 말씀해주세요.",
+    "아까 말씀드린 사람의 이름은 무엇이었나요?",
+    "그 사람은 무엇을 타고 갔나요?",
+    "그 사람은 어디로 갔나요?",
+    "그 사람은 무엇을 했나요?",
+    "그 사람은 몇 시에 시작했나요?",
+    `다음 단어 중 하나만 다른 성격입니다.
+    다른 성격인 단어를 말씀해주세요.
 
-    1, 2, 3, ?, 5, 6`,
-    `Look at the letter pattern.
-    Say the next two letters that fit the sequence:
+    '고양이, 토끼, 강아지, 물고기'`,
+    `글자 순서를 보고 빈칸에 들어갈 두 글자를 말씀해주세요.
     
-    A, B, ?, ?, E`,
+    가, 나, ?, 라, ?`,
 
-    `Does school bring back any memories?
-    Could you also tell me how you used it?`,
+    `공을 생각하면 어떤 기억이 떠오르시나요?
+	예전에 어떻게 사용하셨는지도 말씀해주세요.`,
 
-    `Please express the taste and thougths of cookies`,
+    `쿠키를 보면 어떤 기억이 떠오르시나요?
+	맛 표현이나 취향도 말씀해주세요.`,
 
-    `Does shoes bring back any memories?
-    Could you also tell me how you used it?`,
+    `핸드폰을 보면 어떤 기억이 떠오르시나요?
+	예전에는 어떻게 사용하셨는지도 말씀해주세요.`,
 
-    "Please name as many fruits or vegetables as you can."
+    "지금부터 과일이나 채소의 이름을 최대한 많이 말씀해주세요."
     ];
