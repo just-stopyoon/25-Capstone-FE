@@ -137,7 +137,7 @@ export default function Account() {
   }
 
   // 사용자 나이 계산
-  const calculateAge = (birthYear) => {
+  const calculateAge = (birthYear, birthMonth, birthDay) => {
     if (!birthYear) return null;
     
     const currentYear = new Date().getFullYear();
@@ -145,8 +145,6 @@ export default function Account() {
     const currentDay = new Date().getDate();
     
     // 생일을 1월 1일로 가정 (정확한 생일 정보가 없으므로)
-    const birthMonth = 1;
-    const birthDay = 1;
     
     let age = currentYear - birthYear;
     
@@ -212,7 +210,7 @@ export default function Account() {
                 <span className="plus-badge">PLUS+</span>
               </h2>
               <div className="account-info">
-                <span>연령 <strong>만 {calculateAge(userInfo?.birth_year) || '--'}세</strong></span>
+                <span>연령 <strong>만 {calculateAge(userInfo?.birth_year, userInfo?.birth_month, userInfo?.birth_day) || '--'}세</strong></span>
                 <span>최종 학력 <strong>{userInfo?.education || '--'}</strong></span>
                 <span>보호자 연결 <strong>연결 안 됨</strong></span>
               </div>
