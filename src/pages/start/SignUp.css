@@ -22,7 +22,7 @@
   .signup-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 5px;
   }
   
   /* 라벨 + 입력 필드 정렬 */
