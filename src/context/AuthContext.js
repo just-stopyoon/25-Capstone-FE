@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
       console.log('Auth: Refreshing access token...');
       setIsRefreshing(true);
 
-      const response = await fetch('/api/auth/refresh', {
+      const response = await fetch('http://127.0.0.1:8000/api/auth/refresh', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ export const AuthProvider = ({ children }) => {
         return { isValid: false, user: null };
       }
 
-      const apiUrl = '/api/user/validate';
+      const apiUrl = 'http://127.0.0.1:8000/api/user/validate';
       console.log('Auth: Making API request to:', apiUrl);
 
       // 백엔드 API 호출하여 토큰 유효성 검증
