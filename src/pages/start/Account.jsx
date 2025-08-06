@@ -139,8 +139,23 @@ export default function Account() {
   // 사용자 나이 계산
   const calculateAge = (birthYear) => {
     if (!birthYear) return null;
+    
     const currentYear = new Date().getFullYear();
-    return currentYear - birthYear;
+    const currentMonth = new Date().getMonth() + 1; // 0부터 시작하므로 +1
+    const currentDay = new Date().getDate();
+    
+    // 생일을 1월 1일로 가정 (정확한 생일 정보가 없으므로)
+    const birthMonth = 1;
+    const birthDay = 1;
+    
+    let age = currentYear - birthYear;
+    
+    // 생일이 아직 지나지 않았으면 1살 빼기
+    if (currentMonth < birthMonth || (currentMonth === birthMonth && currentDay < birthDay)) {
+      age -= 1;
+    }
+    
+    return age;
   };
 
   // 마지막 진단일로부터 경과일 계산
