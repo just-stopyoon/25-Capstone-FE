@@ -196,6 +196,16 @@ export default function Account() {
     }
   };
 
+  const getSubscriptionType = (subscriptionType) => {
+    if (subscriptionType === 'standard') {
+      return 'STANDARD'
+    } else if (subscriptionType === 'plus') {
+      return 'PLUS+'
+    } else if (subscriptionType === 'premium') {
+      return 'PREMIUM'
+    }
+  };
+
   return (
     <div className="account-page">
       {showModal && <EditModal onClose={() => setShowModal(false)} />}
@@ -207,7 +217,7 @@ export default function Account() {
             <div className="account-header">
               <h2 className="account-title">
                 <span className="highlight-name">{userInfo?.name || '사용자'}</span>님 안녕하세요.
-                <span className="plus-badge">PLUS+</span>
+                <span className="plus-badge">{getSubscriptionType(userInfo?.subscription_type)}</span>
               </h2>
               <div className="account-info">
                 <span>연령 <strong>만 {calculateAge(userInfo?.birth_year, userInfo?.birth_month, userInfo?.birth_day) || '--'}세</strong></span>
