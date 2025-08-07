@@ -37,6 +37,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+/* 현재 구독 타입 강조 */
+.plan-card.current {
+  border-color: #7B84FF;
+  box-shadow: 0 8px 24px rgba(123, 132, 255, 0.2);
+  transform: translateY(-4px);
+}
+
+.plan-card.current .plan-type {
+  color: #7B84FF;
+  font-weight: 700;
 }
 
 .plan-type {
@@ -84,6 +98,15 @@
 
 .start-button:hover {
   background-color: #5f6de0;
+}
+
+.start-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.start-button:disabled:hover {
+  background-color: #ccc;
 }
 
 /* 기능 목록 */
