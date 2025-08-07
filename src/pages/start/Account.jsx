@@ -49,6 +49,11 @@ export default function Account() {
     }
   }, [navigate]);
 
+  // 사용자 정보 업데이트 콜백
+  const handleUserUpdate = useCallback((updatedUser) => {
+    setUserInfo(updatedUser);
+  }, []);
+
   // 최신 진단 결과 가져오기
   const fetchLatestDiagnosis = useCallback(async () => {
     try {
@@ -208,7 +213,7 @@ export default function Account() {
 
   return (
     <div className="account-page">
-      {showModal && <EditModal onClose={() => setShowModal(false)} />}
+      {showModal && <EditModal onClose={() => setShowModal(false)} onUserUpdate={handleUserUpdate} />}
 
       <div className="account-wrapper">
         <div className="account-card">
