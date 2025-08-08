@@ -22,9 +22,9 @@ export default function Navbar() {
         </Link>
         </div>
             <ul className="navbar-menu">
-                <li><Link to="/about">서비스 소개</Link></li>
                 <li><Link to="/diagnosis">치매 진단</Link></li>
                 <li><Link to="/care">치매 케어</Link></li>
+                <li><Link to="/care">보건소 찾기</Link></li>
                 <li><Link to="/account">계정 관리</Link></li>
             </ul>
         <div className="navbar-login">
