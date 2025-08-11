@@ -52,7 +52,7 @@
   color: #111;
 }
 
-.signup-row input[type="text"] {
+.signup-row input[type="text"], .signup-row input[type="email"] {
   width: 100%;
   max-width: 360px;
   padding: 14px 16px;

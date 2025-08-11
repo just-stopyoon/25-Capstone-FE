@@ -4,8 +4,10 @@ import { useAuth } from "../../../context/AuthContext";
 import "./Subscribe.css";
 import canIcon from "../../../images/can.png";
 import cantIcon from "../../../images/cant.png";
+import EmailEditModal from "./EmailEditModal";
 
 export default function Subscribe() {
+  const [showModal, setShowModal] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -67,7 +69,6 @@ export default function Subscribe() {
 
       const updatedUser = await response.json();
       setUserInfo(updatedUser);
-      alert('구독이 성공적으로 변경되었습니다!');
     } catch (error) {
       console.error('구독 변경 오류:', error);
       alert('구독 변경에 실패했습니다. 다시 시도해주세요.');
@@ -119,7 +120,14 @@ export default function Subscribe() {
       return (
         <button 
           className="start-button" 
-          onClick={() => updateSubscription(planType)}
+          onClick={() => {
+            if (currentSubscription === 'standard') {
+              updateSubscription(planType);
+            } else {
+              setShowModal(true);
+              updateSubscription(planType);
+            }
+          }}
           disabled={updating}
         >
           {updating ? '변경 중...' : '요금제 시작하기'}
@@ -130,6 +138,8 @@ export default function Subscribe() {
 
   return (
     <div className="subscribe-page">
+      {showModal && <EmailEditModal onClose={() => setShowModal(false)} />}
+
       <h1 className="subscribe-title">정확한 진단부터 일상 관리까지, 치매 케어의 모든 것</h1>
       <p className="subscribe-subtitle">무료로 진단을 시작하고, 보호자 연동과 대화 기록으로 더 깊이 있는 관리로 확장해보세요.</p>
 
