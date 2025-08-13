@@ -35,9 +35,6 @@ export default function Care() {
       </section>
 
       <section className="record-status">
-        <h3>주간 기록 현황</h3>
-        <p>기록은 매주 월요일에 시작됩니다</p>
-        
         {/* 주간 통계 표시 */}
         {stats && (
           <div className="weekly-stats">

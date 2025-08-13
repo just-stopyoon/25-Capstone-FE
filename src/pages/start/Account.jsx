@@ -179,7 +179,7 @@ export default function Account() {
       case 'mild':
         return { text: '개선이 필요해요', className: 'status-bad' };
       case 'severe':
-        return { text: '치매가 의심되요', className: 'status-bad' };
+        return { text: '치매가 의심돼요', className: 'status-bad' };
       default:
         return { text: '확인 불가', className: 'status-none' };
     }

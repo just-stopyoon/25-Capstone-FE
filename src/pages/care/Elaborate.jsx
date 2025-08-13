@@ -255,9 +255,9 @@ const Elaborate = () => {
 
       <div className='chat-controls'>
         {isRecording ? (
-          <button onClick={stopRecordingAndSend} className='stop-btn'>말 끝내기</button>
+          <button onClick={stopRecordingAndSend} className='stop-ela-btn'>말 끝내기</button>
         ) : (
-          <button onClick={startRecording} className='start-btn' disabled={isMindySpeaking}>
+          <button onClick={startRecording} className='start-ela-btn' disabled={isMindySpeaking}>
             {isMindySpeaking ? '민디가 말하는 중' : '마이크 누르고 말하기'}
           </button>
         )}
