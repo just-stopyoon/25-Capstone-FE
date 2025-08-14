@@ -205,7 +205,7 @@ export default function Report() {
           </div>
         </div>
 
-        <button className="start-care-btn" onClick={() => navigate('/diagnosis')}>치매 케어 시작하기</button>
+        <button className="start-care-btn" onClick={() => navigate('/care')}>치매 케어 시작하기</button>
       </div>
     </div>
   );

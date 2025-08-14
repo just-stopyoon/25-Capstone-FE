@@ -1,12 +1,12 @@
 .elaborate-page {
     background-color: #F2F2F2;
-    padding: 40px 20px;
+    padding: 30px 20px 20px 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: calc(100vh - 160px);
+    height: 300px;
     box-sizing: border-box;
     font-family: 'Pretendard', sans-serif;
 }
@@ -34,8 +34,8 @@
 }
 
 .mindy-image {
-  width: 330px;
-  height: 330px;
+  width: 300px;
+  height: 300px;
   transition: transform 0.3s ease-in-out;
 }
 
@@ -61,39 +61,40 @@
     margin-bottom: 20px;
 }
 
-.start-btn, .stop-btn {
-    padding: 20px 80px;
+.start-ela-btn, .stop-ela-btn {
+    margin-top : 30px;
+    padding:18px 80px;
     font-size: 20px;
     font-weight: 600;
     border: none;
-    border-radius: 999px;
+    border-radius: 15px;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
 }
 
-.start-btn {
+.start-ela-btn {
   background-color: #7C88FF;
   color: white;
 }
-.start-btn:disabled {
+.start-ela-btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
-.start-btn:not(:disabled):hover {
+.start-ela-btn:not(:disabled):hover {
   background-color: #5e6ce6;
 }
-.start-btn:active {
+.start-ela-btn:active {
     transform: scale(0.95);
 }
 
-.stop-btn {
+.stop-ela-btn {
   background-color: #FF6E6E;
   color: white;
 }
-.stop-btn:hover {
+.stop-ela-btn:hover {
   background-color: #e95757;
 }
-.stop-btn:active {
+.stop-ela-btn:active {
     transform: scale(0.95);
 }
 
